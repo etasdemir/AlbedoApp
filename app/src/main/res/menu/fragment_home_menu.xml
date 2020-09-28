@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fragment_home_menu_anime"
+        android:title="@string/title_menu_anime"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/fragment_home_menu_manga"
+        android:title="@string/title_menu_manga"
+        app:showAsAction="always"
+        />
+</menu>

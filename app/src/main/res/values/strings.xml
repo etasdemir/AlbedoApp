@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Albedo</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    // Tabs
+    <string name="title_menu_anime">Anime</string>
+    <string name="title_menu_manga">Manga</string>
+</resources>
