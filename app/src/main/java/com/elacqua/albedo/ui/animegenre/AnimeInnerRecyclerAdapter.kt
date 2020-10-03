@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
-import kotlinx.android.synthetic.main.fragment_anime_recycler_item_inner.view.*
+import com.elacqua.albedo.data.remote.jikan_api.model.Anime
+import kotlinx.android.synthetic.main.recycler_anime_item.view.*
 
 class AnimeInnerRecyclerAdapter(
-    private val animeList: List<AnimeGenre.Anime>,
+    private val animeList: List<Anime>,
     private val listener: OnAnimeSelectedListener
 )
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.fragment_anime_recycler_item_inner, parent, false)
+        val view = inflater.inflate(R.layout.recycler_anime_item, parent, false)
         return ItemViewHolder(view)
     }
 
@@ -52,5 +52,5 @@ class AnimeInnerRecyclerAdapter(
 }
 
 interface OnAnimeSelectedListener {
-    fun onClick(anime: AnimeGenre.Anime)
+    fun onClick(anime: Anime)
 }

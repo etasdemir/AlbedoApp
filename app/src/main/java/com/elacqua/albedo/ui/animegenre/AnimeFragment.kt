@@ -2,13 +2,17 @@ package com.elacqua.albedo.ui.animegenre
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.R
+import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import kotlinx.android.synthetic.main.anime_fragment.*
 import timber.log.Timber
@@ -29,7 +33,7 @@ class AnimeFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = AnimeRecyclerAdapter(
             object : OnAnimeSelectedListener {
-                override fun onClick(anime: AnimeGenre.Anime) {
+                override fun onClick(anime: Anime) {
                     navigateToAnimeDetail(anime)
                 }
             },
@@ -45,7 +49,7 @@ class AnimeFragment : Fragment() {
         recycler_view_anime.adapter = adapter
     }
 
-    private fun navigateToAnimeDetail(anime: AnimeGenre.Anime) {
+    private fun navigateToAnimeDetail(anime: Anime) {
         Timber.e("Anime clicked: $anime")
         findNavController().navigate(R.id.action_animeFragment_to_animeDetailFragment)
     }
@@ -85,5 +89,4 @@ class AnimeFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.anime_fragment, container, false)
     }
-
 }

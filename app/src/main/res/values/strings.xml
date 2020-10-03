@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">Albedo</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_search">Search</string>
+    <string name="title_schedule">Schedule</string>
 
     // Tabs
     <string name="title_menu_anime">Anime</string>
     <string name="title_menu_manga">Manga</string>
+
+    // Search
+    <string name="title_search_schedule">Anime Schedule</string>
+    <string name="search_bar_search">Search …</string>
+    <string name="search_bar_search_long">Search anime, manga, person, character</string>
+
 </resources>

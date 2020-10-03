@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
@@ -8,6 +9,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.elacqua.albedo.ui.home.HomeFragment"
+        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_animeFragment"
@@ -18,30 +20,34 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.elacqua.albedo.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_search"
+        android:name="com.elacqua.albedo.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.elacqua.albedo.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_schedule"
+        android:name="com.elacqua.albedo.ui.schedule.ScheduleFragment"
+        android:label="@string/title_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_navigation_schedule_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/animeDetailFragment"
         android:name="com.elacqua.albedo.ui.animedetail.AnimeDetailFragment"
-        android:label="anime_detail_fragment"
+        android:label=""
         tools:layout="@layout/anime_detail_fragment" />
     <fragment
         android:id="@+id/mangaDetailFragment"
         android:name="com.elacqua.albedo.ui.mangadetail.MangaDetailFragment"
-        android:label="manga_detail_fragment"
+        android:label=""
         tools:layout="@layout/manga_detail_fragment" />
     <fragment
         android:id="@+id/animeFragment"
         android:name="com.elacqua.albedo.ui.animegenre.AnimeFragment"
-        android:label="anime_fragment"
+        android:label=""
         tools:layout="@layout/anime_fragment" >
         <action
             android:id="@+id/action_animeFragment_to_animeDetailFragment"
@@ -50,7 +56,7 @@
     <fragment
         android:id="@+id/mangaFragment"
         android:name="com.elacqua.albedo.ui.mangagenre.MangaFragment"
-        android:label="manga_fragment"
+        android:label=""
         tools:layout="@layout/manga_fragment" >
         <action
             android:id="@+id/action_mangaFragment_to_mangaDetailFragment"

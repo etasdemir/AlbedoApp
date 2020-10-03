@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
-import kotlinx.android.synthetic.main.fragment_manga_recycler_item_inner.view.*
+import com.elacqua.albedo.data.remote.jikan_api.model.Manga
+import kotlinx.android.synthetic.main.recycler_anime_item.view.*
 
 class MangaInnerRecyclerAdapter(
-    private val mangaList: List<MangaGenre.Manga>,
+    private val mangaList: List<Manga>,
     private val listener: OnMangaSelectedListener
 )
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -18,7 +18,7 @@ class MangaInnerRecyclerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view =
-            inflater.inflate(R.layout.fragment_manga_recycler_item_inner, parent, false)
+            inflater.inflate(R.layout.recycler_anime_item, parent, false)
         return ItemViewHolder(view)
     }
 
@@ -35,11 +35,11 @@ class MangaInnerRecyclerAdapter(
         : RecyclerView.ViewHolder(view){
 
         fun bindView(position: Int) {
-            view.txt_manga_item_name.text = mangaList[position].title
+            view.txt_item_name.text = mangaList[position].title
             Glide
                 .with(view.context)
                 .load(mangaList[position].imageUrl)
-                .into(view.img_manga_item_image)
+                .into(view.img_item_image)
         }
 
         fun viewOnClick(position: Int){
@@ -51,5 +51,5 @@ class MangaInnerRecyclerAdapter(
 }
 
 interface OnMangaSelectedListener{
-    fun onClick(manga: MangaGenre.Manga)
+    fun onClick(manga: Manga)
 }
