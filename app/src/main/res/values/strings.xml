@@ -9,8 +9,12 @@
     <string name="title_menu_manga">Manga</string>
 
     // Search
-    <string name="title_search_schedule">Anime Schedule</string>
     <string name="search_bar_search">Search …</string>
     <string name="search_bar_search_long">Search anime, manga, person, character</string>
+    <string name="most_popular_animes">Most Popular Anime</string>
+    <string name="score">Score: 0.00</string>
+
+    // Schedule
+    <string name="title_schedule_anime">Anime Schedule</string>
 
 </resources>

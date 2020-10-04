@@ -1,19 +1,14 @@
 package com.elacqua.albedo.data
 
 import com.elacqua.albedo.data.remote.jikan_api.JikanApiClient
-import com.elacqua.albedo.data.remote.jikan_api.model.Anime
-import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
-import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
-import com.elacqua.albedo.data.remote.jikan_api.model.Schedule
-import com.elacqua.albedo.data.remote.jikan_api.model.search.AnimeSearch
-import com.elacqua.albedo.data.remote.jikan_api.model.search.CharacterSearch
-import com.elacqua.albedo.data.remote.jikan_api.model.search.MangaSearch
-import com.elacqua.albedo.data.remote.jikan_api.model.search.PeopleSearch
+import com.elacqua.albedo.data.remote.jikan_api.model.*
+import com.elacqua.albedo.data.remote.jikan_api.model.Search
 import com.elacqua.albedo.data.remote.jikan_api.service.GenreService
 import com.elacqua.albedo.data.remote.jikan_api.service.ScheduleService
 import com.elacqua.albedo.data.remote.jikan_api.service.SearchService
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.data.remote.quote_api.QuoteRetrofit
+import timber.log.Timber
 
 class RemoteRepository {
     private val genreService = JikanApiClient.instance.create(GenreService::class.java)
@@ -63,19 +58,24 @@ class RemoteRepository {
         return scheduleService.getScheduleSingleDay(day)
     }
 
-    suspend fun getSearchResultAnime(searchType: String, query: String): AnimeSearch {
+    suspend fun getMostPopularAnime(): Top<Anime> {
+        val result = searchService.getMostPopularAnime()
+        return result
+    }
+
+    suspend fun getSearchResultAnime(searchType: String, query: String): Search<Anime> {
         return searchService.getSearchResultAnime(searchType, query, 1)
     }
 
-    suspend fun getSearchResultManga(searchType: String, query: String): MangaSearch {
+    suspend fun getSearchResultManga(searchType: String, query: String): Search<Manga> {
         return searchService.getSearchResultManga(searchType, query, 1)
     }
 
-    suspend fun getSearchResultPeople(searchType: String, query: String): PeopleSearch {
+    suspend fun getSearchResultPeople(searchType: String, query: String): Search<People> {
         return searchService.getSearchResultPeople(searchType, query, 1)
     }
 
-    suspend fun getSearchResultCharacter(searchType: String, query: String): CharacterSearch {
+    suspend fun getSearchResultCharacter(searchType: String, query: String): Search<Character> {
         return searchService.getSearchResultCharacter(searchType, query, 1)
     }
 }

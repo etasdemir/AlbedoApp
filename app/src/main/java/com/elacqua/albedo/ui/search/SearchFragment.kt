@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.R
+import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_search.*
 import timber.log.Timber
@@ -18,26 +20,53 @@ import java.util.*
 class SearchFragment : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModels()
+    private lateinit var adapter: SearchRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView()
         initObservers()
         initSearchBar()
         initSpinner()
     }
 
+    private fun initRecyclerView() {
+        adapter = SearchRecyclerAdapter(object: OnSearchSelected{
+            override fun onClick(item: Anime) {
+                searchItemSelected(item)
+            }
+        })
+
+        val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recycler_search.adapter = adapter
+        recycler_search.layoutManager = llm
+    }
+
+    private fun searchItemSelected(item: Anime) {
+        Timber.v("item: $item")
+    }
+
     private fun initObservers() {
+
+        searchViewModel.mostPopularAnime.observe(viewLifecycleOwner, {
+            Timber.v("data: $it")
+            adapter.setDataList(it.results)
+        })
 
         searchViewModel.searchResultAnime.observe(viewLifecycleOwner, {
             Timber.v("Anime: $it")
+            txt_most_popular.visibility = View.GONE
+            adapter.setDataList(it.results)
         })
 
         searchViewModel.searchResultManga.observe(viewLifecycleOwner, {
             Timber.v("Manga: $it")
+            txt_most_popular.visibility = View.GONE
+
         })
 
-        searchViewModel.searchResultPoople.observe(viewLifecycleOwner, {
+        searchViewModel.searchResultPeople.observe(viewLifecycleOwner, {
             Timber.v("People: $it")
         })
 

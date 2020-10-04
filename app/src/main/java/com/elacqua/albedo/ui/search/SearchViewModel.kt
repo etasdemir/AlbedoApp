@@ -5,31 +5,42 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.elacqua.albedo.data.RemoteRepository
-import com.elacqua.albedo.data.remote.jikan_api.model.search.AnimeSearch
-import com.elacqua.albedo.data.remote.jikan_api.model.search.CharacterSearch
-import com.elacqua.albedo.data.remote.jikan_api.model.search.MangaSearch
-import com.elacqua.albedo.data.remote.jikan_api.model.search.PeopleSearch
+import com.elacqua.albedo.data.remote.jikan_api.model.*
 import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
 
     private val remoteRepository = RemoteRepository()
 
-    private val _searchResultAnime = MutableLiveData<AnimeSearch>()
-    val searchResultAnime : LiveData<AnimeSearch> = _searchResultAnime
+    private val _mostPopularAnime = MutableLiveData<Top<Anime>>()
+    val mostPopularAnime: LiveData<Top<Anime>> = _mostPopularAnime
 
-    private val _searchResultManga = MutableLiveData<MangaSearch>()
-    val searchResultManga : LiveData<MangaSearch> = _searchResultManga
+    private val _searchResultAnime = MutableLiveData<Search<Anime>>()
+    val searchResultAnime: LiveData<Search<Anime>> = _searchResultAnime
 
-    private val _searchResultPeople = MutableLiveData<PeopleSearch>()
-    val searchResultPoople : LiveData<PeopleSearch> = _searchResultPeople
+    private val _searchResultManga = MutableLiveData<Search<Manga>>()
+    val searchResultManga: LiveData<Search<Manga>> = _searchResultManga
 
-    private val _searchResultCharacter = MutableLiveData<CharacterSearch>()
-    val searchResultCharacter : LiveData<CharacterSearch> = _searchResultCharacter
+    private val _searchResultPeople = MutableLiveData<Search<People>>()
+    val searchResultPeople: LiveData<Search<People>> = _searchResultPeople
+
+    private val _searchResultCharacter = MutableLiveData<Search<Character>>()
+    val searchResultCharacter: LiveData<Search<Character>> = _searchResultCharacter
+
+    init {
+        viewModelScope.launch {
+            getMostPopularAnime()
+        }
+    }
+
+    private suspend fun getMostPopularAnime() {
+        val result = remoteRepository.getMostPopularAnime()
+        _mostPopularAnime.postValue(result)
+    }
 
     fun getSearchResultAnime(searchType: String, query: String) {
         viewModelScope.launch {
-            when(searchType){
+            when (searchType) {
                 "anime" -> {
                     val result = remoteRepository.getSearchResultAnime(searchType, query)
                     _searchResultAnime.postValue(result)
@@ -48,7 +59,7 @@ class SearchViewModel : ViewModel() {
                 }
             }
         }
-
     }
+
 
 }
