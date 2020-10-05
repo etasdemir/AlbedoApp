@@ -12,6 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
+import com.elacqua.albedo.data.remote.jikan_api.model.Character
+import com.elacqua.albedo.data.remote.jikan_api.model.Manga
+import com.elacqua.albedo.data.remote.jikan_api.model.People
+import com.elacqua.albedo.data.remote.jikan_api.model.Search
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_search.*
 import timber.log.Timber
@@ -20,7 +24,7 @@ import java.util.*
 class SearchFragment : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModels()
-    private lateinit var adapter: SearchRecyclerAdapter
+    private lateinit var initialAdapter: SearchRecyclerAdapter<Anime>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,47 +36,73 @@ class SearchFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = SearchRecyclerAdapter(object: OnSearchSelected{
+        initialAdapter = AnimeAdapter(object: OnSearchSelected<Anime>{
             override fun onClick(item: Anime) {
                 searchItemSelected(item)
             }
         })
 
         val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recycler_search.adapter = adapter
+        recycler_search.adapter = initialAdapter
         recycler_search.layoutManager = llm
-    }
-
-    private fun searchItemSelected(item: Anime) {
-        Timber.v("item: $item")
     }
 
     private fun initObservers() {
 
         searchViewModel.mostPopularAnime.observe(viewLifecycleOwner, {
             Timber.v("data: $it")
-            adapter.setDataList(it.results)
+            initialAdapter.setDataList(it.results)
         })
 
         searchViewModel.searchResultAnime.observe(viewLifecycleOwner, {
             Timber.v("Anime: $it")
-            txt_most_popular.visibility = View.GONE
-            adapter.setDataList(it.results)
+            val newAdapter = AnimeAdapter(object: OnSearchSelected<Anime>{
+                override fun onClick(item: Anime) {
+                    searchItemSelected(item)
+                }
+            })
+            initBeforeSearch(newAdapter, it)
         })
 
         searchViewModel.searchResultManga.observe(viewLifecycleOwner, {
             Timber.v("Manga: $it")
-            txt_most_popular.visibility = View.GONE
-
+            val newAdapter = MangaAdapter(object: OnSearchSelected<Manga>{
+                override fun onClick(item: Manga) {
+                    searchItemSelected(item)
+                }
+            })
+            initBeforeSearch(newAdapter, it)
         })
 
         searchViewModel.searchResultPeople.observe(viewLifecycleOwner, {
             Timber.v("People: $it")
+            val newAdapter = PeopleAdapter(object: OnSearchSelected<People>{
+                override fun onClick(item: People) {
+                    searchItemSelected(item)
+                }
+            })
+            initBeforeSearch(newAdapter, it)
         })
 
         searchViewModel.searchResultCharacter.observe(viewLifecycleOwner, {
             Timber.v("Character: $it")
+            val newAdapter = CharacterAdapter(object: OnSearchSelected<Character>{
+                override fun onClick(item: Character) {
+                    searchItemSelected(item)
+                }
+            })
+            initBeforeSearch(newAdapter, it)
         })
+    }
+
+    private fun <T>initBeforeSearch(adapter: SearchRecyclerAdapter<T>, result: Search<T>){
+        txt_most_popular.visibility = View.GONE
+        recycler_search.adapter = adapter
+        adapter.setDataList(result.results)
+    }
+
+    private fun <T>searchItemSelected(item: T) {
+        Timber.v("item: $item")
     }
 
     private fun initSearchBar() {

@@ -3,15 +3,16 @@ package com.elacqua.albedo.data
 import com.elacqua.albedo.data.remote.jikan_api.JikanApiClient
 import com.elacqua.albedo.data.remote.jikan_api.model.*
 import com.elacqua.albedo.data.remote.jikan_api.model.Search
-import com.elacqua.albedo.data.remote.jikan_api.service.GenreService
+import com.elacqua.albedo.data.remote.jikan_api.service.AnimeService
+import com.elacqua.albedo.data.remote.jikan_api.service.MangaService
 import com.elacqua.albedo.data.remote.jikan_api.service.ScheduleService
 import com.elacqua.albedo.data.remote.jikan_api.service.SearchService
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.data.remote.quote_api.QuoteRetrofit
-import timber.log.Timber
 
 class RemoteRepository {
-    private val genreService = JikanApiClient.instance.create(GenreService::class.java)
+    private val animeService = JikanApiClient.instance.create(AnimeService::class.java)
+    private val mangaService = JikanApiClient.instance.create(MangaService::class.java)
     private val scheduleService = JikanApiClient.instance.create(ScheduleService::class.java)
     private val searchService = JikanApiClient.instance.create(SearchService::class.java)
     private val quoteRetrofit = QuoteRetrofit.instance
@@ -23,25 +24,33 @@ class RemoteRepository {
     suspend fun getMultipleAnimeByGenreId(id: IntArray): ArrayList<AnimeGenre> {
         val result = ArrayList<AnimeGenre>()
         id.forEach {
-            result.add(genreService.getAnimeByGenreId(it))
+            result.add(animeService.getAnimeByGenreId(it))
         }
         return result
     }
 
     suspend fun getAnimeByGenreId(id: Int): AnimeGenre {
-        return genreService.getAnimeByGenreId(id)
+        return animeService.getAnimeByGenreId(id)
+    }
+
+    suspend fun getAnimeById(id: Int): Anime {
+        return animeService.getAnimeById(id)
     }
 
     suspend fun getMultipleMangaByGenreId(id: IntArray): ArrayList<MangaGenre> {
         val result = ArrayList<MangaGenre>()
         id.forEach {
-            result.add(genreService.getMangaByGenreId(it))
+            result.add(mangaService.getMangaByGenreId(it))
         }
         return result
     }
 
     suspend fun getMangaByGenreId(id: Int): MangaGenre {
-        return genreService.getMangaByGenreId(id)
+        return mangaService.getMangaByGenreId(id)
+    }
+
+    suspend fun getMangaById(id: Int): Manga {
+        return mangaService.getMangaById(id)
     }
 
     /**

@@ -1,6 +1,5 @@
 package com.elacqua.albedo.data.remote.jikan_api
 
-import com.elacqua.albedo.data.remote.jikan_api.service.GenreService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

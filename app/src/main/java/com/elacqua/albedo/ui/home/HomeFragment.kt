@@ -2,6 +2,7 @@ package com.elacqua.albedo.ui.home
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.elacqua.albedo.R
@@ -25,7 +26,7 @@ class HomeFragment : Fragment() {
     ): View? {
 
         setHasOptionsMenu(true)
-//        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
