@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
-import kotlinx.android.synthetic.main.fragment_manga_recycler_header.view.*
-import kotlinx.android.synthetic.main.fragment_manga_recycler_item.view.*
+import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
+import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 
 class MangaRecyclerAdapter (
     private val listener: OnMangaSelectedListener,
@@ -44,12 +44,12 @@ class MangaRecyclerAdapter (
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_HEADER) {
             val view = inflater
-                .inflate(R.layout.fragment_manga_recycler_header, parent, false)
+                .inflate(R.layout.fragment_recycler_header, parent, false)
             VHHeader(view)
         } else {
             val view = inflater
-                .inflate(R.layout.fragment_manga_recycler_item, parent, false)
-            view.recycler_manga_inner.apply {
+                .inflate(R.layout.fragment_recycler_item, parent, false)
+            view.recycler_inner.apply {
                 layoutManager =
                     LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
                 setRecycledViewPool(RecyclerView.RecycledViewPool())
@@ -83,9 +83,9 @@ class MangaRecyclerAdapter (
     inner class VHHeader(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView() {
-            view.txt_manga_quote.text = quoteData.quote
-            view.txt_manga_quote_anime.text = quoteData.anime
-            view.txt_manga_quote_character.text = quoteData.character
+            view.txt_quote.text = quoteData.quote
+            view.txt_quote_anime.text = quoteData.anime
+            view.txt_quote_character.text = quoteData.character
         }
     }
 
@@ -98,8 +98,8 @@ class MangaRecyclerAdapter (
         }
 
         fun bindView(position: Int) {
-            view.txt_manga_item_genre.text = mangaGenreList[position].malUrl.name
-            view.recycler_manga_inner.adapter =
+            view.txt_item_genre.text = mangaGenreList[position].malUrl.name
+            view.recycler_inner.adapter =
                 MangaInnerRecyclerAdapter(mangaGenreList[position].manga.subList(0, 20), listener)
 
         }

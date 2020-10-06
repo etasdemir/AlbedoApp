@@ -15,7 +15,7 @@ import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.Character
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.data.remote.jikan_api.model.People
-import com.elacqua.albedo.data.remote.jikan_api.model.Search
+import com.elacqua.albedo.data.remote.jikan_api.model.Result
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_search.*
 import timber.log.Timber
@@ -95,7 +95,7 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun <T>initBeforeSearch(adapter: SearchRecyclerAdapter<T>, result: Search<T>){
+    private fun <T>initBeforeSearch(adapter: SearchRecyclerAdapter<T>, result: Result<T>){
         txt_most_popular.visibility = View.GONE
         recycler_search.adapter = adapter
         adapter.setDataList(result.results)

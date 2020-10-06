@@ -15,17 +15,17 @@ class SearchViewModel : ViewModel() {
     private val _mostPopularAnime = MutableLiveData<Top<Anime>>()
     val mostPopularAnime: LiveData<Top<Anime>> = _mostPopularAnime
 
-    private val _searchResultAnime = MutableLiveData<Search<Anime>>()
-    val searchResultAnime: LiveData<Search<Anime>> = _searchResultAnime
+    private val _searchResultAnime = MutableLiveData<Result<Anime>>()
+    val searchResultAnime: LiveData<Result<Anime>> = _searchResultAnime
 
-    private val _searchResultManga = MutableLiveData<Search<Manga>>()
-    val searchResultManga: LiveData<Search<Manga>> = _searchResultManga
+    private val _searchResultManga = MutableLiveData<Result<Manga>>()
+    val searchResultManga: LiveData<Result<Manga>> = _searchResultManga
 
-    private val _searchResultPeople = MutableLiveData<Search<People>>()
-    val searchResultPeople: LiveData<Search<People>> = _searchResultPeople
+    private val _searchResultPeople = MutableLiveData<Result<People>>()
+    val searchResultPeople: LiveData<Result<People>> = _searchResultPeople
 
-    private val _searchResultCharacter = MutableLiveData<Search<Character>>()
-    val searchResultCharacter: LiveData<Search<Character>> = _searchResultCharacter
+    private val _searchResultCharacter = MutableLiveData<Result<Character>>()
+    val searchResultCharacter: LiveData<Result<Character>> = _searchResultCharacter
 
     init {
         viewModelScope.launch {

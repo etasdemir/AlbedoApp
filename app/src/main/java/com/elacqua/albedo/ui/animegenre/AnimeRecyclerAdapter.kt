@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
-import kotlinx.android.synthetic.main.fragment_anime_recycler_header.view.*
-import kotlinx.android.synthetic.main.fragment_anime_recycler_item.view.*
+import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
+import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 
 class AnimeRecyclerAdapter (
     private val listener: OnAnimeSelectedListener,
@@ -44,11 +44,11 @@ class AnimeRecyclerAdapter (
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_HEADER) {
             val view = inflater
-                .inflate(R.layout.fragment_anime_recycler_header, parent, false)
+                .inflate(R.layout.fragment_recycler_header, parent, false)
             VHHeader(view)
         } else {
             val view = inflater
-                .inflate(R.layout.fragment_anime_recycler_item, parent, false)
+                .inflate(R.layout.fragment_recycler_item, parent, false)
             view.recycler_inner.apply {
                 layoutManager =
                     LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)

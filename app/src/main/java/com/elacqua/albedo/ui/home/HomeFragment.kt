@@ -16,6 +16,30 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initObservers()
+
+    }
+
+    private fun initObservers() {
+        homeViewModel.airingAnime.observe(viewLifecycleOwner, {
+
+        })
+
+        homeViewModel.upcomingAnime.observe(viewLifecycleOwner, {
+
+        })
+
+        homeViewModel.topMovies.observe(viewLifecycleOwner, {
+
+        })
+
+        homeViewModel.topManga.observe(viewLifecycleOwner, {
+
+        })
+
+        homeViewModel.topNovels.observe(viewLifecycleOwner, {
+
+        })
 
     }
 
