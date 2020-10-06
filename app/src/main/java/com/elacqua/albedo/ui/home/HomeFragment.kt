@@ -7,38 +7,63 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.elacqua.albedo.R
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.elacqua.albedo.data.remote.jikan_api.model.Anime
+import com.elacqua.albedo.data.remote.jikan_api.model.Manga
+import com.elacqua.albedo.ui.animegenre.OnAnimeSelectedListener
+import com.elacqua.albedo.ui.mangagenre.OnMangaSelectedListener
+import kotlinx.android.synthetic.main.fragment_home.*
+import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
+    private lateinit var adapter: HomeRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initObservers()
+        initRecyclerView()
+    }
 
+    private fun initRecyclerView() {
+        val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recycler_home.layoutManager = llm
+        adapter = HomeRecyclerAdapter(
+        object: OnAnimeSelectedListener{
+            override fun onClick(anime: Anime) {
+                Timber.v("anime: $anime")
+            }
+        },
+        object: OnMangaSelectedListener{
+            override fun onClick(manga: Manga) {
+                Timber.v("manga: $manga")
+            }
+        })
+        recycler_home.adapter = adapter
     }
 
     private fun initObservers() {
         homeViewModel.airingAnime.observe(viewLifecycleOwner, {
-
+            adapter.setAirings(it.results)
         })
 
         homeViewModel.upcomingAnime.observe(viewLifecycleOwner, {
-
+            adapter.setUpcomings(it.results)
         })
 
         homeViewModel.topMovies.observe(viewLifecycleOwner, {
-
+            adapter.setMovies(it.results)
         })
 
         homeViewModel.topManga.observe(viewLifecycleOwner, {
-
+            adapter.setManga(it.results)
         })
 
         homeViewModel.topNovels.observe(viewLifecycleOwner, {
-
+            adapter.setNovels(it.results)
         })
 
     }

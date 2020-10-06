@@ -4,6 +4,13 @@
     <string name="title_search">Search</string>
     <string name="title_schedule">Schedule</string>
 
+    // Home
+    <string name="title_airings">Top Airings</string>
+    <string name="title_upcomings">Top Upcomings</string>
+    <string name="title_movies">Top Movies</string>
+    <string name="title_top_manga">Top Manga</string>
+    <string name="title_novels">Top Novels</string>
+
     // Tabs
     <string name="title_menu_anime">Anime</string>
     <string name="title_menu_manga">Manga</string>
@@ -18,5 +25,7 @@
 
     // Schedule
     <string name="title_schedule_anime">Anime Schedule</string>
+
+
 
 </resources>
