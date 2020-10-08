@@ -3,6 +3,7 @@ package com.elacqua.albedo.ui.home
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.elacqua.albedo.R
@@ -34,12 +35,16 @@ class HomeFragment : Fragment() {
         adapter = HomeRecyclerAdapter(
         object: OnAnimeSelectedListener{
             override fun onClick(anime: Anime) {
-                Timber.v("anime: $anime")
+                val args = bundleOf("animeId" to anime.malId)
+                findNavController()
+                    .navigate(R.id.action_navigation_home_to_animeDetailFragment, args)
             }
         },
         object: OnMangaSelectedListener{
             override fun onClick(manga: Manga) {
-                Timber.v("manga: $manga")
+                val args = bundleOf("mangaId" to manga.malId)
+                findNavController()
+                    .navigate(R.id.action_navigation_home_to_mangaDetailFragment, args)
             }
         })
         recycler_home.adapter = adapter

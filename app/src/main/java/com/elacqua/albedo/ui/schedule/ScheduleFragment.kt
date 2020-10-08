@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,8 +30,9 @@ class ScheduleFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = ScheduleRecyclerAdapter(object: OnScheduleAnimeSelected {
             override fun onClick(anime: Anime) {
-                Timber.e("anime selected: $anime")
-                findNavController().navigate(R.id.action_navigation_schedule_to_animeDetailFragment)
+                val args = bundleOf("animeId" to anime.malId)
+                findNavController()
+                    .navigate(R.id.action_navigation_schedule_to_animeDetailFragment, args)
             }
         })
         val llm =

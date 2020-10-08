@@ -26,6 +26,20 @@
     // Schedule
     <string name="title_schedule_anime">Anime Schedule</string>
 
+    // Detail Fragment
+    <string name="title">Title</string>
+    <string name="detail_airing_start">Airing</string>
+    <string name="detail_episodes">Episodes</string>
+    <string name="detail_members">Members</string>
+    <string name="detail_score">Score</string>
+    <string name="detail_synopsis">Synopsis</string>
+    <string name="detail_genres">Genres</string>
+    <string name="detail_producers">Producers</string>
+    <string name="detail_opening_themes">Opening Themes</string>
+    <string name="detail_ending_themes">Ending Themes</string>
 
+    <string name="detail_published">Published</string>
+    <string name="detail_volumes">Volume</string>
+    <string name="detail_authors">Authors</string>
 
 </resources>

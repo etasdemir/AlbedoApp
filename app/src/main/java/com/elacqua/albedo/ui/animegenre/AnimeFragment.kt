@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -51,7 +52,8 @@ class AnimeFragment : Fragment() {
 
     private fun navigateToAnimeDetail(anime: Anime) {
         Timber.e("Anime clicked: $anime")
-        findNavController().navigate(R.id.action_animeFragment_to_animeDetailFragment)
+        val bundle = bundleOf("animeId" to anime.malId)
+        findNavController().navigate(R.id.action_animeFragment_to_animeDetailFragment, bundle)
     }
 
     private fun navigateToAnimeCategory(animeGenre: AnimeGenre) {

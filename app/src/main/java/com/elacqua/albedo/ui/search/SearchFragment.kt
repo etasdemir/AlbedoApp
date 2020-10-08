@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
@@ -38,7 +40,9 @@ class SearchFragment : Fragment() {
     private fun initRecyclerView() {
         initialAdapter = AnimeAdapter(object: OnSearchSelected<Anime>{
             override fun onClick(item: Anime) {
-                searchItemSelected(item)
+                val args = bundleOf("animeId" to item.malId)
+                findNavController()
+                    .navigate(R.id.action_navigation_search_to_animeDetailFragment, args)
             }
         })
 
@@ -50,25 +54,26 @@ class SearchFragment : Fragment() {
     private fun initObservers() {
 
         searchViewModel.mostPopularAnime.observe(viewLifecycleOwner, {
-            Timber.v("data: $it")
             initialAdapter.setDataList(it.results)
         })
 
         searchViewModel.searchResultAnime.observe(viewLifecycleOwner, {
-            Timber.v("Anime: $it")
             val newAdapter = AnimeAdapter(object: OnSearchSelected<Anime>{
                 override fun onClick(item: Anime) {
-                    searchItemSelected(item)
+                    val args = bundleOf("animeId" to item.malId)
+                    findNavController()
+                        .navigate(R.id.action_navigation_search_to_animeDetailFragment, args)
                 }
             })
             initBeforeSearch(newAdapter, it)
         })
 
         searchViewModel.searchResultManga.observe(viewLifecycleOwner, {
-            Timber.v("Manga: $it")
             val newAdapter = MangaAdapter(object: OnSearchSelected<Manga>{
                 override fun onClick(item: Manga) {
-                    searchItemSelected(item)
+                    val args = bundleOf("mangaId" to item.malId)
+                    findNavController()
+                        .navigate(R.id.action_navigation_search_to_mangaDetailFragment2, args)
                 }
             })
             initBeforeSearch(newAdapter, it)

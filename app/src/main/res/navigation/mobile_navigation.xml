@@ -17,13 +17,26 @@
         <action
             android:id="@+id/action_navigation_home_to_mangaFragment"
             app:destination="@id/mangaFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_mangaDetailFragment"
+            app:destination="@id/mangaDetailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.elacqua.albedo.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_search_to_mangaDetailFragment2"
+            app:destination="@id/mangaDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_schedule"
@@ -32,6 +45,9 @@
         tools:layout="@layout/fragment_schedule" >
         <action
             android:id="@+id/action_navigation_schedule_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_schedule_to_animeDetailFragment2"
             app:destination="@id/animeDetailFragment" />
     </fragment>
     <fragment

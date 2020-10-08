@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,7 +48,8 @@ class MangaFragment : Fragment() {
 
     private fun navigateToMangaDetail(manga: Manga) {
         Timber.e("Manga clicked: $manga")
-        findNavController().navigate(R.id.action_mangaFragment_to_mangaDetailFragment)
+        val args = bundleOf("mangaId" to manga.malId)
+        findNavController().navigate(R.id.action_mangaFragment_to_mangaDetailFragment, args)
     }
 
     private fun navigateToMangaCategory(mangaGenre: MangaGenre) {
