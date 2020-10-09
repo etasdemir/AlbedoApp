@@ -19,6 +19,8 @@ class AnimeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val id = arguments?.get("animeId") as Int
+        viewModel.getAnimeById(id)
         initAnimeObserver()
     }
 
@@ -44,9 +46,6 @@ class AnimeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val id = arguments?.get("animeId") as Int
-        viewModel.getAnimeById(id)
 
         return inflater.inflate(R.layout.anime_detail_fragment, container, false)
     }

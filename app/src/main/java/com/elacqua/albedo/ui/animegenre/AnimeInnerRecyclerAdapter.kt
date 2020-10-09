@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import kotlinx.android.synthetic.main.recycler_anime_item.view.*
 
 class AnimeInnerRecyclerAdapter(
@@ -47,10 +48,5 @@ class AnimeInnerRecyclerAdapter(
             }
         }
     }
-
-
 }
 
-interface OnAnimeSelectedListener {
-    fun onClick(anime: Anime)
-}

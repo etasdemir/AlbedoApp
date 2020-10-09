@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_home_to_mangaDetailFragment"
             app:destination="@id/mangaDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_genreFragment"
+            app:destination="@id/genreFragment" />
     </fragment>
 
     <fragment
@@ -68,6 +71,9 @@
         <action
             android:id="@+id/action_animeFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_animeFragment_to_genreFragment"
+            app:destination="@id/genreFragment" />
     </fragment>
     <fragment
         android:id="@+id/mangaFragment"
@@ -76,6 +82,21 @@
         tools:layout="@layout/manga_fragment" >
         <action
             android:id="@+id/action_mangaFragment_to_mangaDetailFragment"
+            app:destination="@id/mangaDetailFragment" />
+        <action
+            android:id="@+id/action_mangaFragment_to_genreFragment"
+            app:destination="@id/genreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/genreFragment"
+        android:name="com.elacqua.albedo.ui.genre.GenreFragment"
+        android:label="genre_fragment"
+        tools:layout="@layout/genre_fragment" >
+        <action
+            android:id="@+id/action_genreFragment_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_genreFragment_to_mangaDetailFragment"
             app:destination="@id/mangaDetailFragment" />
     </fragment>
 </navigation>

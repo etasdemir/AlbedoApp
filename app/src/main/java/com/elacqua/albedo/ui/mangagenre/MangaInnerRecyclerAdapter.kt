@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
+import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.recycler_anime_item.view.*
 
 class MangaInnerRecyclerAdapter(
@@ -50,6 +51,3 @@ class MangaInnerRecyclerAdapter(
     }
 }
 
-interface OnMangaSelectedListener{
-    fun onClick(manga: Manga)
-}

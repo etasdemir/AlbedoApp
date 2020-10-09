@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
+import com.elacqua.albedo.util.GenreType
 import kotlinx.android.synthetic.main.anime_fragment.*
 import timber.log.Timber
 
@@ -57,8 +59,9 @@ class AnimeFragment : Fragment() {
     }
 
     private fun navigateToAnimeCategory(animeGenre: AnimeGenre) {
-        Timber.e("item clicked: ${animeGenre.malUrl?.name}")
-//        findNavController().navigate() R.id.toCategory
+        val args =
+            bundleOf("genreType" to GenreType.ANIME, "genreId" to animeGenre.malUrl.malId)
+        findNavController().navigate(R.id.action_animeFragment_to_genreFragment, args)
     }
 
     private fun initObservers() {

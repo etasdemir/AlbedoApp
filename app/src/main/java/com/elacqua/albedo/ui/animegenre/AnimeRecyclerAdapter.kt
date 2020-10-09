@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
 import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 

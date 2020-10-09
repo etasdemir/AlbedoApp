@@ -11,10 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
-import com.elacqua.albedo.ui.animegenre.OnAnimeSelectedListener
-import com.elacqua.albedo.ui.mangagenre.OnMangaSelectedListener
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
+import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.fragment_home.*
-import timber.log.Timber
 
 
 class HomeFragment : Fragment() {
@@ -33,18 +32,25 @@ class HomeFragment : Fragment() {
         val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recycler_home.layoutManager = llm
         adapter = HomeRecyclerAdapter(
-        object: OnAnimeSelectedListener{
+        object: OnAnimeSelectedListener {
             override fun onClick(anime: Anime) {
                 val args = bundleOf("animeId" to anime.malId)
                 findNavController()
                     .navigate(R.id.action_navigation_home_to_animeDetailFragment, args)
             }
         },
-        object: OnMangaSelectedListener{
+        object: OnMangaSelectedListener {
             override fun onClick(manga: Manga) {
                 val args = bundleOf("mangaId" to manga.malId)
                 findNavController()
                     .navigate(R.id.action_navigation_home_to_mangaDetailFragment, args)
+            }
+        },
+        object: OnGenreSelected{
+            override fun onGenreClick(type: Int) {
+                val args = bundleOf("genreType" to type)
+                findNavController()
+                    .navigate(R.id.action_navigation_home_to_genreFragment, args)
             }
         })
         recycler_home.adapter = adapter
