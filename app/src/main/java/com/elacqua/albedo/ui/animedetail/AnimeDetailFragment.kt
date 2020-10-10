@@ -22,6 +22,7 @@ class AnimeDetailFragment : Fragment() {
         val id = arguments?.get("animeId") as Int
         viewModel.getAnimeById(id)
         initAnimeObserver()
+        
     }
 
     private fun initAnimeObserver() {

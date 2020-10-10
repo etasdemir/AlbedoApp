@@ -49,5 +49,11 @@ class AnimeViewModel : ViewModel() {
         _quote.postValue(value)
     }
 
+    fun refreshQuote() {
+        viewModelScope.launch {
+            _quote.postValue(remoteRepository.getQuote())
+        }
+    }
+
 
 }

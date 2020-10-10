@@ -26,17 +26,17 @@ class MangaViewModel : ViewModel() {
     val mangaGenres = _mangaGenres
 
     init {
-        viewModelScope.launch {
-            getQuote()
-            getMangaByGenres(
-                MangaGenreId.Mystery, MangaGenreId.Demons, MangaGenreId.Historical,
-                MangaGenreId.Magic, MangaGenreId.Martial)
-        }
+        getQuote()
+        getMangaByGenres(
+            MangaGenreId.Mystery, MangaGenreId.Demons, MangaGenreId.Historical,
+            MangaGenreId.Magic, MangaGenreId.Martial)
     }
 
-    private suspend fun getMangaByGenres(vararg id: Int) {
-        val result = remoteRepository.getMultipleMangaByGenreId(id)
-        _mangaGenres.postValue(result)
+    private fun getMangaByGenres(vararg id: Int) {
+        viewModelScope.launch {
+            val result = remoteRepository.getMultipleMangaByGenreId(id)
+            _mangaGenres.postValue(result)
+        }
     }
 
     private suspend fun getMangaById(id: Int){
@@ -44,9 +44,14 @@ class MangaViewModel : ViewModel() {
         _mangaGenre.postValue(result)
     }
 
-    private suspend fun getQuote(){
-        val result = remoteRepository.getQuote()
-        _quote.postValue(result)
+    private fun getQuote(){
+        viewModelScope.launch {
+            _quote.postValue(remoteRepository.getQuote())
+        }
+    }
+
+    fun refreshQuote() {
+        getQuote()
     }
 
 }

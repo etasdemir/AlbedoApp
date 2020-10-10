@@ -9,12 +9,14 @@ import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.ui.OnMangaSelectedListener
+import com.elacqua.albedo.ui.OnQuoteClickListener
 import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
 import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 
 class MangaRecyclerAdapter (
     private val listener: OnMangaSelectedListener,
-    private val categorySelectedListener: OnMangaCategorySelectedListener
+    private val categorySelectedListener: OnMangaCategorySelectedListener,
+    private val quoteListener: OnQuoteClickListener
 )
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER = 0
@@ -71,6 +73,7 @@ class MangaRecyclerAdapter (
         val itemNewPosition = position - 1
         if (holder is VHHeader) {
             holder.bindView()
+            holder.onClick()
         } else if (holder is VHItem) {
             holder.bindView(itemNewPosition)
             holder.viewOnClick(itemNewPosition)
@@ -87,6 +90,12 @@ class MangaRecyclerAdapter (
             view.txt_quote.text = quoteData.quote
             view.txt_quote_anime.text = quoteData.anime
             view.txt_quote_character.text = quoteData.character
+        }
+
+        fun onClick() {
+            view.btn_quote_refresh.setOnClickListener {
+                quoteListener.onRefreshClick()
+            }
         }
     }
 

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.ui.OnMangaSelectedListener
-import kotlinx.android.synthetic.main.recycler_anime_item.view.*
+import kotlinx.android.synthetic.main.recycler_item.view.*
 
 class MangaInnerRecyclerAdapter(
     private val mangaList: List<Manga>,
@@ -19,7 +19,7 @@ class MangaInnerRecyclerAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view =
-            inflater.inflate(R.layout.recycler_anime_item, parent, false)
+            inflater.inflate(R.layout.recycler_item, parent, false)
         return ItemViewHolder(view)
     }
 

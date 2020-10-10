@@ -13,6 +13,7 @@ import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.ui.OnMangaSelectedListener
+import com.elacqua.albedo.ui.OnQuoteClickListener
 import com.elacqua.albedo.util.GenreType
 import kotlinx.android.synthetic.main.manga_fragment.*
 import timber.log.Timber
@@ -39,6 +40,11 @@ class MangaFragment : Fragment() {
             object: OnMangaCategorySelectedListener{
                 override fun onClick(mangaGenre: MangaGenre) {
                     navigateToMangaCategory(mangaGenre)
+                }
+            },
+            object : OnQuoteClickListener{
+                override fun onRefreshClick() {
+                    viewModel.refreshQuote()
                 }
             }
         )

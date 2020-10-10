@@ -16,6 +16,7 @@ import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
+import com.elacqua.albedo.ui.OnQuoteClickListener
 import com.elacqua.albedo.util.GenreType
 import kotlinx.android.synthetic.main.anime_fragment.*
 import timber.log.Timber
@@ -44,8 +45,12 @@ class AnimeFragment : Fragment() {
                 override fun onClick(animeGenre: AnimeGenre) {
                     navigateToAnimeCategory(animeGenre)
                 }
+            },
+            object : OnQuoteClickListener {
+                override fun onRefreshClick() {
+                    viewModel.refreshQuote()
+                }
             }
-
         )
         val layoutManager = LinearLayoutManager(recycler_view_anime.context)
         recycler_view_anime.layoutManager = layoutManager
