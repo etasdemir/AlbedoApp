@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.Schedule
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ScheduleViewModel : ViewModel() {
+class ScheduleViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
-    private val remoteRepository = RemoteRepository()
     private val _scheduleAllDays = MutableLiveData<Schedule>()
     val scheduleAllDays : LiveData<Schedule> = _scheduleAllDays
 

@@ -8,13 +8,12 @@ import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.util.MangaGenreId
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MangaViewModel : ViewModel() {
-
-    private val remoteRepository = RemoteRepository()
+class MangaViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
     private val _quote = MutableLiveData<Quote>()
     val quote: LiveData<Quote> = _quote

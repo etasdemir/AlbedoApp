@@ -1,20 +1,29 @@
 package com.elacqua.albedo.data
 
-import com.elacqua.albedo.data.remote.jikan_api.JikanApiClient
 import com.elacqua.albedo.data.remote.jikan_api.model.*
-import com.elacqua.albedo.data.remote.jikan_api.model.Result
 import com.elacqua.albedo.data.remote.jikan_api.service.*
 import com.elacqua.albedo.data.remote.quote_api.Quote
-import com.elacqua.albedo.data.remote.quote_api.QuoteRetrofit
-import retrofit2.http.GET
+import com.elacqua.albedo.data.remote.quote_api.QuoteService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteRepository {
-    private val animeService = JikanApiClient.instance.create(AnimeService::class.java)
-    private val mangaService = JikanApiClient.instance.create(MangaService::class.java)
-    private val scheduleService = JikanApiClient.instance.create(ScheduleService::class.java)
-    private val searchService = JikanApiClient.instance.create(SearchService::class.java)
-    private val topItemService = JikanApiClient.instance.create(TopItemService::class.java)
-    private val quoteRetrofit = QuoteRetrofit.instance
+@Singleton
+class RemoteRepository @Inject constructor(
+    private val animeService: AnimeService,
+    private val mangaService: MangaService,
+    private val topItemService: TopItemService,
+    private val scheduleService: ScheduleService,
+    private val searchService: SearchService,
+    private val quoteRetrofit: QuoteService
+){
+
+    private lateinit var schedule: Schedule
+    private lateinit var mostPopularAnime: Top<Anime>
+    private lateinit var topAiring: Result<Anime>
+    private lateinit var topUpcoming: Result<Anime>
+    private lateinit var topMovies: Result<Anime>
+    private lateinit var topManga: Result<Manga>
+    private lateinit var topNovels: Result<Manga>
 
     suspend fun getQuote(): Quote {
         return quoteRetrofit.getRandomQuote()
@@ -24,6 +33,7 @@ class RemoteRepository {
         val result = ArrayList<AnimeGenre>()
         id.forEach {
             result.add(animeService.getAnimeByGenreId(it))
+            result[0].malUrl.malId
         }
         return result
     }
@@ -58,8 +68,10 @@ class RemoteRepository {
      *  it.airingStart.split("-")[0] > "2019"
      * */
     suspend fun getScheduleAllDays(): Schedule {
-        val result = scheduleService.getScheduleAllDays()
-        return result
+        if (!::schedule.isInitialized){
+            schedule = scheduleService.getScheduleAllDays()
+        }
+        return schedule
     }
 
     suspend fun getScheduleSingleDay(day: String): List<Anime> {
@@ -67,8 +79,10 @@ class RemoteRepository {
     }
 
     suspend fun getMostPopularAnime(): Top<Anime> {
-        val result = searchService.getMostPopularAnime()
-        return result
+        if (!::mostPopularAnime.isInitialized){
+            mostPopularAnime = searchService.getMostPopularAnime()
+        }
+        return mostPopularAnime
     }
 
     suspend fun getSearchResultAnime(searchType: String, query: String): Result<Anime> {
@@ -88,23 +102,38 @@ class RemoteRepository {
     }
 
     suspend fun getTopAiringAnime(): Result<Anime>{
-        return topItemService.getTopAiringAnime()
+        if (!::topAiring.isInitialized){
+            topAiring = topItemService.getTopAiringAnime()
+        }
+        return topAiring
     }
 
     suspend fun getTopUpcomingAnime(): Result<Anime>{
-        return topItemService.getTopUpcomingAnime()
+        if (!::topUpcoming.isInitialized){
+            topUpcoming = topItemService.getTopUpcomingAnime()
+        }
+        return topUpcoming
     }
 
     suspend fun getTopMovies(): Result<Anime>{
-        return topItemService.getTopMovies()
+        if (!::topMovies.isInitialized){
+            topMovies = topItemService.getTopMovies()
+        }
+        return topMovies
     }
 
     suspend fun getTopManga(): Result<Manga>{
-        return topItemService.getTopManga()
+        if (!::topManga.isInitialized){
+            topManga = topItemService.getTopManga()
+        }
+        return topManga
     }
 
     suspend fun getTopNovels(): Result<Manga>{
-        return topItemService.getTopNovels()
+        if (!::topNovels.isInitialized){
+            topNovels = topItemService.getTopNovels()
+        }
+        return topNovels
     }
 
 

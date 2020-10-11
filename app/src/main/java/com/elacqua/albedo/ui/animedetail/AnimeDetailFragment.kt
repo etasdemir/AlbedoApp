@@ -1,20 +1,24 @@
 package com.elacqua.albedo.ui.animedetail
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
 import com.elacqua.albedo.util.Utility
 import kotlinx.android.synthetic.main.anime_detail_fragment.*
+import javax.inject.Inject
 
 class AnimeDetailFragment : Fragment() {
 
-    private val viewModel: AnimeDetailViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: AnimeDetailViewModel by viewModels{ vmFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,4 +55,8 @@ class AnimeDetailFragment : Fragment() {
         return inflater.inflate(R.layout.anime_detail_fragment, container, false)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
 }

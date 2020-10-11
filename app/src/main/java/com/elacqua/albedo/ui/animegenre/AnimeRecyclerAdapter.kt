@@ -12,7 +12,6 @@ import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnQuoteClickListener
 import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
 import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
-import kotlinx.android.synthetic.main.recycler_item.view.*
 
 private const val TYPE_HEADER = 0
 private const val TYPE_ITEM = 1

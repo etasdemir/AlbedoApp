@@ -1,14 +1,17 @@
 package com.elacqua.albedo.ui.mangagenre
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
@@ -16,11 +19,12 @@ import com.elacqua.albedo.ui.OnMangaSelectedListener
 import com.elacqua.albedo.ui.OnQuoteClickListener
 import com.elacqua.albedo.util.GenreType
 import kotlinx.android.synthetic.main.manga_fragment.*
-import timber.log.Timber
+import javax.inject.Inject
 
 class MangaFragment : Fragment() {
 
-    private val viewModel: MangaViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: MangaViewModel by viewModels{ vmFactory }
     private lateinit var adapter: MangaRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,5 +97,10 @@ class MangaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.manga_fragment, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as AlbedoApp).appComponent.inject(this)
     }
 }

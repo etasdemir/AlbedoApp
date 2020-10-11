@@ -1,5 +1,6 @@
 package com.elacqua.albedo.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,22 +11,22 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.Anime
-import com.elacqua.albedo.data.remote.jikan_api.model.Character
-import com.elacqua.albedo.data.remote.jikan_api.model.Manga
-import com.elacqua.albedo.data.remote.jikan_api.model.People
-import com.elacqua.albedo.data.remote.jikan_api.model.Result
+import com.elacqua.albedo.data.remote.jikan_api.model.*
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_search.*
 import timber.log.Timber
 import java.util.*
+import javax.inject.Inject
 
 class SearchFragment : Fragment() {
 
-    private val searchViewModel: SearchViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val searchViewModel: SearchViewModel by viewModels{ vmFactory }
     private lateinit var initialAdapter: SearchRecyclerAdapter<Anime>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -145,5 +146,10 @@ class SearchFragment : Fragment() {
     ): View? {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         return inflater.inflate(R.layout.fragment_search, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as AlbedoApp).appComponent.inject(this)
     }
 }

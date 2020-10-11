@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MangaDetailViewModel : ViewModel() {
-
-    private val remoteRepository = RemoteRepository()
+class MangaDetailViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
     private val _manga = MutableLiveData<Manga>()
     val manga: LiveData<Manga> = _manga

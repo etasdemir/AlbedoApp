@@ -8,13 +8,12 @@ import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.util.AnimeGenreId
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnimeViewModel : ViewModel() {
-    private val remoteRepository = RemoteRepository()
-    private val emptyQuote = Quote()
+class AnimeViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
     private val _quote = MutableLiveData<Quote>()
     val quote: LiveData<Quote> = _quote
@@ -45,8 +44,7 @@ class AnimeViewModel : ViewModel() {
 
     private suspend fun getQuote(){
         val result = remoteRepository.getQuote()
-        val value = result ?: emptyQuote
-        _quote.postValue(value)
+        _quote.postValue(result)
     }
 
     fun refreshQuote() {

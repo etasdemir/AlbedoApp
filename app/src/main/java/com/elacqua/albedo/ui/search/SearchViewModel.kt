@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
-
-    private val remoteRepository = RemoteRepository()
+class SearchViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
     private val _mostPopularAnime = MutableLiveData<Top<Anime>>()
     val mostPopularAnime: LiveData<Top<Anime>> = _mostPopularAnime

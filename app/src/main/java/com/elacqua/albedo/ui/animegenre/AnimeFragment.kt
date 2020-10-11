@@ -1,17 +1,17 @@
 package com.elacqua.albedo.ui.animegenre
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
@@ -20,10 +20,12 @@ import com.elacqua.albedo.ui.OnQuoteClickListener
 import com.elacqua.albedo.util.GenreType
 import kotlinx.android.synthetic.main.anime_fragment.*
 import timber.log.Timber
+import javax.inject.Inject
 
 class AnimeFragment : Fragment() {
 
-    private val viewModel: AnimeViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: AnimeViewModel by viewModels{ vmFactory }
     private lateinit var adapter: AnimeRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,5 +100,10 @@ class AnimeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.anime_fragment, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as AlbedoApp).appComponent.inject(this)
     }
 }

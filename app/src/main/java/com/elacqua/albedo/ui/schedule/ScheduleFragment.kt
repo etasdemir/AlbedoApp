@@ -1,5 +1,6 @@
 package com.elacqua.albedo.ui.schedule
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,16 +9,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import kotlinx.android.synthetic.main.fragment_schedule.*
-import timber.log.Timber
+import javax.inject.Inject
 
 class ScheduleFragment : Fragment() {
 
-    private val scheduleViewModel: ScheduleViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val scheduleViewModel: ScheduleViewModel by viewModels{ vmFactory }
     private lateinit var adapter: ScheduleRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,5 +60,10 @@ class ScheduleFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
 
         return inflater.inflate(R.layout.fragment_schedule, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as AlbedoApp).appComponent.inject(this)
     }
 }

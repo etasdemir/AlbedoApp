@@ -1,29 +1,33 @@
 package com.elacqua.albedo.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.elacqua.albedo.R
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.elacqua.albedo.AlbedoApp
+import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.fragment_home.*
-
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val homeViewModel: HomeViewModel by viewModels{ vmFactory }
     private lateinit var adapter: HomeRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+//        homeViewModel = ViewModelProvider(this, vmFactory).get(HomeViewModel::class.java)
         initObservers()
         initRecyclerView()
     }
@@ -105,5 +109,10 @@ class HomeFragment : Fragment() {
             }
         }
         return false
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as AlbedoApp).appComponent.inject(this)
     }
 }

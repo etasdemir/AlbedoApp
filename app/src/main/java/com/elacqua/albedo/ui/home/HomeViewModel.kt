@@ -9,10 +9,11 @@ import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.data.remote.jikan_api.model.Result
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
-
-    private val remoteRepository = RemoteRepository()
+class HomeViewModel @Inject constructor(
+    private val remoteRepository: RemoteRepository
+) : ViewModel() {
 
     private val _airingAnime = MutableLiveData<Result<Anime>>()
     val airingAnime: LiveData<Result<Anime>> = _airingAnime
