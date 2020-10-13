@@ -99,4 +99,10 @@
             android:id="@+id/action_genreFragment_to_mangaDetailFragment"
             app:destination="@id/mangaDetailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.elacqua.albedo.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/profile_fragment" />
 </navigation>

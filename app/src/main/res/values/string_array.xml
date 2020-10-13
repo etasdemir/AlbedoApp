@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerContents">
+        <item>Anime</item>
+        <item>Manga</item>
+        <item>People</item>
+        <item>Character</item>
+    </string-array>
+</resources>

@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_schedule">Schedule</string>
+    <string name="title_profile">Profile</string>
 
     // Home
     <string name="title_airings">Top Airings</string>

@@ -1,16 +1,15 @@
 package com.elacqua.albedo.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.elacqua.albedo.data.RemoteRepository
+import com.elacqua.albedo.data.local.LocalRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    private val remoteRepository: RemoteRepository
+    private val remoteRepository: RemoteRepository,
+    private val localRepository: LocalRepository
 ) : ViewModel() {
 
     private val _mostPopularAnime = MutableLiveData<Top<Anime>>()

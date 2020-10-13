@@ -22,11 +22,13 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val searchViewModel: SearchViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val searchViewModel: SearchViewModel by viewModels { vmFactory }
     private lateinit var initialAdapter: SearchRecyclerAdapter<Anime>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +41,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        initialAdapter = AnimeAdapter(object: OnSearchSelected<Anime>{
+        initialAdapter = AnimeAdapter(object : OnSearchSelected<Anime> {
             override fun onClick(item: Anime) {
                 val args = bundleOf("animeId" to item.malId)
                 findNavController()
@@ -53,13 +55,17 @@ class SearchFragment : Fragment() {
     }
 
     private fun initObservers() {
+        searchResultObservers()
 
         searchViewModel.mostPopularAnime.observe(viewLifecycleOwner, {
             initialAdapter.setDataList(it.results)
         })
 
+    }
+
+    private fun searchResultObservers() {
         searchViewModel.searchResultAnime.observe(viewLifecycleOwner, {
-            val newAdapter = AnimeAdapter(object: OnSearchSelected<Anime>{
+            val newAdapter = AnimeAdapter(object : OnSearchSelected<Anime> {
                 override fun onClick(item: Anime) {
                     val args = bundleOf("animeId" to item.malId)
                     findNavController()
@@ -70,7 +76,7 @@ class SearchFragment : Fragment() {
         })
 
         searchViewModel.searchResultManga.observe(viewLifecycleOwner, {
-            val newAdapter = MangaAdapter(object: OnSearchSelected<Manga>{
+            val newAdapter = MangaAdapter(object : OnSearchSelected<Manga> {
                 override fun onClick(item: Manga) {
                     val args = bundleOf("mangaId" to item.malId)
                     findNavController()
@@ -82,7 +88,7 @@ class SearchFragment : Fragment() {
 
         searchViewModel.searchResultPeople.observe(viewLifecycleOwner, {
             Timber.v("People: $it")
-            val newAdapter = PeopleAdapter(object: OnSearchSelected<People>{
+            val newAdapter = PeopleAdapter(object : OnSearchSelected<People> {
                 override fun onClick(item: People) {
                     searchItemSelected(item)
                 }
@@ -92,7 +98,7 @@ class SearchFragment : Fragment() {
 
         searchViewModel.searchResultCharacter.observe(viewLifecycleOwner, {
             Timber.v("Character: $it")
-            val newAdapter = CharacterAdapter(object: OnSearchSelected<Character>{
+            val newAdapter = CharacterAdapter(object : OnSearchSelected<Character> {
                 override fun onClick(item: Character) {
                     searchItemSelected(item)
                 }
@@ -101,18 +107,19 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun <T>initBeforeSearch(adapter: SearchRecyclerAdapter<T>, result: Result<T>){
+    private fun <T> initBeforeSearch(adapter: SearchRecyclerAdapter<T>, result: Result<T>) {
         txt_most_popular.visibility = View.GONE
         recycler_search.adapter = adapter
         adapter.setDataList(result.results)
     }
 
-    private fun <T>searchItemSelected(item: T) {
+    private fun <T> searchItemSelected(item: T) {
         Timber.v("item: $item")
     }
 
     private fun initSearchBar() {
-        searchBar.setOnSearchActionListener(object: MaterialSearchBar.OnSearchActionListener{
+        searchBar.setMaxSuggestionCount(5)
+        searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
             override fun onSearchStateChanged(enabled: Boolean) {
                 spinner_search.isGone = enabled
             }
@@ -129,20 +136,24 @@ class SearchFragment : Fragment() {
     }
 
     // Note: How to reduce code duplication here
-    private fun getSearchResult(searchType: String, query: String){
+    private fun getSearchResult(searchType: String, query: String) {
         searchViewModel.getSearchResultAnime(searchType, query)
     }
 
     private fun initSpinner() {
         val arrayAdapter =
-            ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, resources.getStringArray(R.array.spinnerContents))
+            ArrayAdapter(
+                requireContext(),
+                R.layout.support_simple_spinner_dropdown_item,
+                resources.getStringArray(R.array.spinnerContents)
+            )
         spinner_search.adapter = arrayAdapter
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         return inflater.inflate(R.layout.fragment_search, container, false)
