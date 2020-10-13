@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
+import com.elacqua.albedo.data.remote.quote_api.QuoteList
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnQuoteClickListener
+import com.elacqua.albedo.ui.mangagenre.MangaRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
 import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 
@@ -22,16 +24,13 @@ class AnimeRecyclerAdapter (
     private val quoteListener: OnQuoteClickListener
 )
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var quoteData: Quote.Data = Quote.Data()
+
+    private var quote = Quote()
     private var animeGenreList: ArrayList<AnimeGenre> = ArrayList()
 
     fun setQuoteItem(quote: Quote) {
-        quote.data.let {
-            if (it.isNotEmpty()) {
-                quoteData = it[0]
-                notifyDataSetChanged()
-            }
-        }
+        this.quote = quote
+        notifyItemChanged(0)
     }
 
     fun addAnimeGenre(animeGenre: AnimeGenre) {
@@ -88,16 +87,21 @@ class AnimeRecyclerAdapter (
     inner class VHHeader(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView() {
-            view.txt_quote.text = quoteData.quote
-            view.txt_quote_anime.text = quoteData.anime
-            view.txt_quote_character.text = quoteData.character
+            view.txt_quote.text = quote.quote
+            view.txt_quote_anime.text = quote.anime
+            view.txt_quote_character.text = quote.character
+            if (quote.isFavourite){
+                view.btn_quote_favourite.setImageResource(R.drawable.ic_quote_favorite_36)
+            }
         }
 
         fun onClick(){
             view.btn_quote_refresh.setOnClickListener {
                 quoteListener.onRefreshClick()
             }
-            // On Favourite Button Clicked Listener
+            view.btn_quote_favourite.setOnClickListener {
+                quoteListener.onFavouriteClick(quote)
+            }
         }
     }
 

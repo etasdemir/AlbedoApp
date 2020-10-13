@@ -2,7 +2,7 @@ package com.elacqua.albedo.data
 
 import com.elacqua.albedo.data.remote.jikan_api.model.*
 import com.elacqua.albedo.data.remote.jikan_api.service.*
-import com.elacqua.albedo.data.remote.quote_api.Quote
+import com.elacqua.albedo.data.remote.quote_api.QuoteList
 import com.elacqua.albedo.data.remote.quote_api.QuoteService
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,7 +25,7 @@ class RemoteRepository @Inject constructor(
     private lateinit var topManga: Result<Manga>
     private lateinit var topNovels: Result<Manga>
 
-    suspend fun getQuote(): Quote {
+    suspend fun getQuote(): QuoteList {
         return quoteRetrofit.getRandomQuote()
     }
 

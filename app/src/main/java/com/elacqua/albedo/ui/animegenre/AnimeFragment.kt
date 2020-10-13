@@ -15,6 +15,7 @@ import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
+import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnQuoteClickListener
 import com.elacqua.albedo.util.GenreType
@@ -51,6 +52,10 @@ class AnimeFragment : Fragment() {
             object : OnQuoteClickListener {
                 override fun onRefreshClick() {
                     viewModel.refreshQuote()
+                }
+
+                override fun onFavouriteClick(quote: Quote) {
+                    viewModel.favouriteClicked(quote)
                 }
             }
         )

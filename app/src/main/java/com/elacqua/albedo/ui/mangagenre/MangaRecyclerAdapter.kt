@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
+import com.elacqua.albedo.data.remote.quote_api.QuoteList
 import com.elacqua.albedo.ui.OnMangaSelectedListener
 import com.elacqua.albedo.ui.OnQuoteClickListener
 import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
@@ -21,16 +22,12 @@ class MangaRecyclerAdapter (
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER = 0
     private val TYPE_ITEM = 1
-    private var quoteData: Quote.Data = Quote.Data()
+    private var quote: Quote = Quote()
     private var mangaGenreList: ArrayList<MangaGenre> = ArrayList()
 
     fun setQuoteItem(quote: Quote) {
-        quote.data.let {
-            if (it.isNotEmpty()) {
-                quoteData = it[0]
-                notifyDataSetChanged()
-            }
-        }
+        this.quote = quote
+        notifyItemChanged(0)
     }
 
     fun addAnimeGenre(mangaGenre: MangaGenre) {
@@ -87,14 +84,20 @@ class MangaRecyclerAdapter (
     inner class VHHeader(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView() {
-            view.txt_quote.text = quoteData.quote
-            view.txt_quote_anime.text = quoteData.anime
-            view.txt_quote_character.text = quoteData.character
+            view.txt_quote.text = quote.quote
+            view.txt_quote_anime.text = quote.anime
+            view.txt_quote_character.text = quote.character
+            if (quote.isFavourite){
+                view.btn_quote_favourite.setImageResource(R.drawable.ic_quote_favorite_36)
+            }
         }
 
         fun onClick() {
             view.btn_quote_refresh.setOnClickListener {
                 quoteListener.onRefreshClick()
+            }
+            view.btn_quote_favourite.setOnClickListener {
+                quoteListener.onFavouriteClick(quote)
             }
         }
     }

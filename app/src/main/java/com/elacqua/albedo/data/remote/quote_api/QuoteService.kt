@@ -4,5 +4,5 @@ import retrofit2.http.GET
 
 interface QuoteService {
     @GET("quotes/random")
-    suspend fun getRandomQuote(): Quote
+    suspend fun getRandomQuote(): QuoteList
 }
