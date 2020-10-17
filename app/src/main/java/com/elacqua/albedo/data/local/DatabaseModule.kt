@@ -22,5 +22,12 @@ object DatabaseModule{
     fun provideFavouriteQuoteDao(db: LocalDatabase) =
         db.favouriteQuoteDao()
 
+    @Provides
+    fun provideItemDao(db: LocalDatabase) =
+        db.itemDao()
+
+    @Provides
+    fun provideItemListDao(db: LocalDatabase) =
+        db.itemListDao()
 
 }

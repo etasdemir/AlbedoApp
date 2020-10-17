@@ -238,6 +238,49 @@
             app:layout_constraintStart_toStartOf="@+id/textView22"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
+        <ImageButton
+            android:id="@+id/btn_animedetail_favourite"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:src="@drawable/ic_quote_unfavourite_36"
+            app:layout_constraintStart_toEndOf="@+id/btn_animedetail_watched"
+            app:layout_constraintTop_toBottomOf="@+id/txt_animedetail_members" />
+
+        <TextView
+            android:id="@+id/txt_animedetail_watched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/detail_watched"
+            app:layout_constraintStart_toEndOf="@+id/img_animedetail"
+            app:layout_constraintTop_toBottomOf="@+id/txt_animedetail_members" />
+
+        <ImageButton
+            android:id="@+id/btn_animedetail_watched"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_false_36"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_animedetail_watched"
+            app:layout_constraintStart_toEndOf="@+id/txt_animedetail_watched"
+            app:layout_constraintTop_toTopOf="@+id/txt_animedetail_watched" />
+
+        <ImageButton
+            android:id="@+id/btn_animedetail_list_add"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_list_add_36"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/btn_animedetail_favourite"
+            app:layout_constraintTop_toTopOf="@+id/btn_animedetail_favourite" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

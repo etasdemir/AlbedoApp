@@ -198,6 +198,48 @@
             app:layout_constraintStart_toEndOf="@+id/textView18"
             app:layout_constraintTop_toTopOf="@+id/textView18" />
 
+        <TextView
+            android:id="@+id/txt_mangadetail_read"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/detail_read"
+            app:layout_constraintStart_toEndOf="@+id/img_mangadetail"
+            app:layout_constraintTop_toBottomOf="@+id/txt_mangadetail_members" />
+
+        <ImageView
+            android:id="@+id/btn_mangadetail_read"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_false_36"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_mangadetail_read"
+            app:layout_constraintStart_toEndOf="@+id/txt_mangadetail_read"
+            app:layout_constraintTop_toTopOf="@+id/txt_mangadetail_read" />
+
+        <ImageView
+            android:id="@+id/btn_mangadetail_favourite"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_quote_unfavourite_36"
+            app:layout_constraintStart_toEndOf="@+id/btn_mangadetail_read"
+            app:layout_constraintTop_toTopOf="@+id/btn_mangadetail_read" />
+
+        <ImageView
+            android:id="@+id/btn_mangadetail_add_list"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_list_add_36"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/btn_mangadetail_favourite"
+            app:layout_constraintTop_toTopOf="@+id/btn_mangadetail_favourite" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

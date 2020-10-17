@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
 
@@ -118,7 +117,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun initSearchBar() {
-        searchBar.setMaxSuggestionCount(5)
         searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
             override fun onSearchStateChanged(enabled: Boolean) {
                 spinner_search.isGone = enabled

@@ -28,6 +28,7 @@
     <string name="title_schedule_anime">Anime Schedule</string>
 
     // Detail Fragment
+    <string name="detail_watched">Watched</string>
     <string name="title">Title</string>
     <string name="detail_airing_start">Airing</string>
     <string name="detail_episodes">Episodes</string>
@@ -42,5 +43,13 @@
     <string name="detail_published">Published</string>
     <string name="detail_volumes">Volume</string>
     <string name="detail_authors">Authors</string>
+    <string name="detail_read">Read</string>
+    
+    // Dialog Add
+    <string name="dialog_add_title">Save to …</string>
+    <string name="dialog_add_new_list">Create New List</string>
+    <string name="dialog_add_new_item">Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
 </resources>

@@ -1,6 +1,5 @@
 package com.elacqua.albedo.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.elacqua.albedo.data.local.model.FavouriteQuote
 
