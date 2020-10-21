@@ -32,7 +32,7 @@ class MangaViewModel @Inject constructor(
         getQuote()
         getMangaByGenres(
             MangaGenreId.Mystery, MangaGenreId.Demons, MangaGenreId.Historical,
-            MangaGenreId.Magic, MangaGenreId.Martial)
+            MangaGenreId.Magic)
     }
 
     private fun getMangaByGenres(vararg id: Int) {

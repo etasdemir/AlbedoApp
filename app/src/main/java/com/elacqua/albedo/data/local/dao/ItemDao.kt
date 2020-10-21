@@ -16,10 +16,12 @@ interface ItemDao {
     @Query("select * from Item where malId = :id")
     suspend fun getItemWithId(id: Int): Item
 
-    @Query("select * from Item where type = :type and isFavourite ")
-    fun getFavouriteItems(type: String): LiveData<List<Item>>
+    @Query("select count(*) from Item where type = :type and isFinished")
+    suspend fun getFinishedItemCountByType(type: String): Int
 
-    @Query("select * from Item where type = :type and isFinished")
-    fun getFinishedItems(type: String): LiveData<List<Item>>
+    @Query("select sum(episodes) from Item where type = 'anime' and isFinished")
+    suspend fun getWatchedEpisodesSum(): Int
 
+    @Query("select * from Item")
+    suspend fun getAllItems(): List<Item>
 }

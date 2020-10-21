@@ -112,7 +112,7 @@ class AnimeRecyclerAdapter (
         }
 
         fun bindView(position: Int) {
-            view.txt_item_genre.text = animeGenreList[position].malUrl.name
+            view.txt_item_title.text = animeGenreList[position].malUrl.name
             view.recycler_inner.adapter =
                 AnimeInnerRecyclerAdapter(animeGenreList[position].anime.subList(0, 20), listener)
 

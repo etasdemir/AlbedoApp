@@ -52,4 +52,13 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
 
+    // Profile
+    <string name="profile_watched_anime">Watched Anime</string>
+    <string name="profile_read_manga">Read Manga</string>
+    <string name="profile_watched_episodes">Watched Episodes</string>
+    <string name="profile_favourite_anime">Favourite Anime</string>
+    <string name="profile_favourite_manga">Favourite Manga</string>
+    <string name="profile_favourite_quotes">Favourite Quotes</string>
+    <string name="profile_my_list">Saved Lists</string>
+
 </resources>

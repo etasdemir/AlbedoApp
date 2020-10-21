@@ -73,7 +73,7 @@ class HomeRecyclerAdapter (
     inner class HomeViewHolder(private val view: View): RecyclerView.ViewHolder(view){
 
         fun onBind(position: Int){
-            view.txt_item_genre.text =
+            view.txt_item_title.text =
                 view.context.resources.getString(Utility.homeCategoryTitles[position])
             view.recycler_inner.layoutManager =
                 LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)

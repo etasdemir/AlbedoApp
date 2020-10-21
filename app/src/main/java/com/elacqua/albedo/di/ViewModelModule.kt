@@ -5,10 +5,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.elacqua.albedo.ui.ViewModelFactory
 import com.elacqua.albedo.ui.animedetail.AnimeDetailViewModel
 import com.elacqua.albedo.ui.animegenre.AnimeViewModel
+import com.elacqua.albedo.ui.favouritequote.FavouriteQuoteFragment
+import com.elacqua.albedo.ui.favouritequote.FavouriteQuoteViewModel
 import com.elacqua.albedo.ui.genre.GenreViewModel
 import com.elacqua.albedo.ui.home.HomeViewModel
 import com.elacqua.albedo.ui.mangadetail.MangaDetailViewModel
 import com.elacqua.albedo.ui.mangagenre.MangaViewModel
+import com.elacqua.albedo.ui.profile.ProfileFragment
+import com.elacqua.albedo.ui.profile.ProfileViewModel
 import com.elacqua.albedo.ui.schedule.ScheduleViewModel
 import com.elacqua.albedo.ui.search.SearchViewModel
 import dagger.Binds
@@ -67,5 +71,15 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     internal abstract fun searchViewModel(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    internal abstract fun profileViewModel(viewModel: ProfileViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavouriteQuoteViewModel::class)
+    internal abstract fun favouriteQuoteViewModel(viewModel: FavouriteQuoteViewModel): ViewModel
 
 }

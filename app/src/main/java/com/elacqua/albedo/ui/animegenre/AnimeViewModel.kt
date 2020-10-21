@@ -33,7 +33,7 @@ class AnimeViewModel @Inject constructor(
         viewModelScope.launch {
             getQuote()
             getAnimeByGenres(AnimeGenreId.Action, AnimeGenreId.Adventure, AnimeGenreId.Drama,
-                    AnimeGenreId.Fantasy, AnimeGenreId.SciFi)
+                    AnimeGenreId.Fantasy)
         }
     }
 

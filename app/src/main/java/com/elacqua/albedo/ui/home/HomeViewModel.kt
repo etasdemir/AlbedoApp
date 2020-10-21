@@ -8,6 +8,7 @@ import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.data.remote.jikan_api.model.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,7 +32,7 @@ class HomeViewModel @Inject constructor(
     val topNovels: LiveData<Result<Manga>> = _topNovels
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _airingAnime.postValue(remoteRepository.getTopAiringAnime())
             _upcomingAnime.postValue(remoteRepository.getTopUpcomingAnime())
             _topMovies.postValue(remoteRepository.getTopMovies())

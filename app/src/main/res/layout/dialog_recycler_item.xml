@@ -16,8 +16,10 @@
             android:id="@+id/txt_dialog_rv_list_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="0dp"
             tools:text="TextView"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

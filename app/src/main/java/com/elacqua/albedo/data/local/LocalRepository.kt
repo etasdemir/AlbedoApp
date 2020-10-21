@@ -34,14 +34,21 @@ class LocalRepository @Inject constructor(
 
     suspend fun getItemWithId(id: Int) = itemDao.getItemWithId(id)
 
-    fun getFavouriteItems(type: String) = itemDao.getFavouriteItems(type)
-
-    fun getFinishedItems(type: String) = itemDao.getFinishedItems(type)
+    suspend fun getAllItems() = itemDao.getAllItems()
 
     suspend fun addItemToItemList (itemList: ItemList) = itemListDao.addItemToList(itemList)
 
     suspend fun getAllListNamesAnime() = itemListDao.getAllListNamesAnime()
 
     suspend fun getAllListNamesManga() = itemListDao.getAllListNamesManga()
+
+    suspend fun getAllLists() = itemListDao.getAllLists()
+
+    suspend fun getFinishedItemCountByType(type: String) =
+        itemDao.getFinishedItemCountByType(type)
+
+    suspend fun getWatchedEpisodesSum() = itemDao.getWatchedEpisodesSum()
+
+    suspend fun getItemsInList(itemType: String, listName: String) = itemListDao.getItemsInList(itemType, listName)
 
 }

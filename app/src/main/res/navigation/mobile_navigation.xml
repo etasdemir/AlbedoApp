@@ -104,5 +104,14 @@
         android:id="@+id/navigation_profile"
         android:name="com.elacqua.albedo.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/profile_fragment" >
+        <action
+            android:id="@+id/action_navigation_profile_to_favouriteQuoteFragment"
+            app:destination="@id/favouriteQuoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteQuoteFragment"
+        android:name="com.elacqua.albedo.ui.favouritequote.FavouriteQuoteFragment"
+        android:label="favourite_quote_fragment"
+        tools:layout="@layout/favourite_quote_fragment" />
 </navigation>

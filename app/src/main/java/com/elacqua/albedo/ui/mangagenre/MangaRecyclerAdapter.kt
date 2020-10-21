@@ -110,7 +110,7 @@ class MangaRecyclerAdapter (
         }
 
         fun bindView(position: Int) {
-            view.txt_item_genre.text = mangaGenreList[position].malUrl.name
+            view.txt_item_title.text = mangaGenreList[position].malUrl.name
             view.recycler_inner.adapter =
                 MangaInnerRecyclerAdapter(mangaGenreList[position].manga.subList(0, 20), listener)
 

@@ -32,16 +32,19 @@ class AnimeDetailViewModel @Inject constructor(
 
     fun getAnimeById(id: Int) {
         viewModelScope.launch {
-            getLocalAnime(id)
-            _anime.postValue(remoteRepository.getAnimeById(id))
+            val anime = remoteRepository.getAnimeById(id)
+            getLocalAnime(anime)
+            _anime.postValue(anime)
             
         }
     }
 
-    private suspend fun getLocalAnime(id: Int) {
-        var result: Item? = localRepository.getItemWithId(id)
+    private suspend fun getLocalAnime(anime: Anime) {
+        var result: Item? = localRepository.getItemWithId(anime.malId)
         if (result == null){
-            result = Item(malId = id, type = "anime")
+            result =
+                Item(malId = anime.malId, type = "anime",
+                    title = anime.title, episodes = anime.episodes, imgUrl = anime.imageUrl)
             addItem(result)
         }
         _animeLocal.postValue(result)

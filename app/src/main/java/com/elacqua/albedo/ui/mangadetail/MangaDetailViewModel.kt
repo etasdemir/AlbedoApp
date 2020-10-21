@@ -32,15 +32,17 @@ class MangaDetailViewModel @Inject constructor(
 
     fun getMangaById(id: Int) {
         viewModelScope.launch {
-            getLocalManga(id)
-            _manga.postValue(remoteRepository.getMangaById(id))
+            val manga = remoteRepository.getMangaById(id)
+            getLocalManga(manga)
+            _manga.postValue(manga)
         }
     }
 
-    private suspend fun getLocalManga(id: Int){
-        var result: Item? = localRepository.getItemWithId(id)
+    private suspend fun getLocalManga(manga: Manga){
+        var result: Item? = localRepository.getItemWithId(manga.malId)
         if (result == null){
-            result = Item(malId = id, type = "manga")
+            result = Item(malId = manga.malId, type = "manga",
+                title = manga.title, imgUrl = manga.imageUrl)
             addItem(result)
         }
         _localManga.postValue(result)
