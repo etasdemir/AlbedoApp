@@ -61,7 +61,7 @@ class GenreRecyclerAdapter(private val animeListener: OnAnimeSelectedListener,
 
         fun onAnimeClick(position: Int) {
             view.setOnClickListener {
-                animeListener.onClick(animes[position])
+                animeListener.onClick(animes[position].malId)
             }
         }
 
@@ -72,7 +72,7 @@ class GenreRecyclerAdapter(private val animeListener: OnAnimeSelectedListener,
 
         fun onMangaClick(position: Int) {
             view.setOnClickListener {
-                mangaListener.onClick(mangas[position])
+                mangaListener.onClick(mangas[position].malId)
             }
         }
     }

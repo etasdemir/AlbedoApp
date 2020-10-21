@@ -45,7 +45,7 @@ class MangaInnerRecyclerAdapter(
 
         fun viewOnClick(position: Int){
             view.setOnClickListener {
-                listener.onClick(mangaList[position])
+                listener.onClick(mangaList[position].malId)
             }
         }
     }

@@ -44,9 +44,9 @@ class ProfileItemsInnerAdapter (
         fun onClick(position: Int){
             view.setOnClickListener {
                 if (items[position].type == "anime"){
-                    animeListener.onClick(Anime(malId = items[position].malId))
+                    animeListener.onClick(items[position].malId)
                 } else {
-//                    mangaListener.onClick(Manga(malId = items[position].malId))
+                    mangaListener.onClick(items[position].malId)
                 }
             }
         }

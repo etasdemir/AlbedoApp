@@ -8,14 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
-import kotlinx.android.synthetic.main.dialog_recycler_item.view.*
-import kotlinx.android.synthetic.main.fragment_schedule_recycler_item.view.*
-import timber.log.Timber
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
+import com.elacqua.albedo.ui.OnMangaSelectedListener
+import kotlinx.android.synthetic.main.fragment_profile_saved_recycler.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ProfileSavedListRecyclerAdapter
-    : RecyclerView.Adapter<ProfileSavedListRecyclerAdapter.SavedListsViewHolder>(){
+class ProfileSavedListRecyclerAdapter(
+    private val animeListener: OnAnimeSelectedListener,
+    private val mangaListener: OnMangaSelectedListener,
+    private val savedListListener: OnSavedListSelected
+) : RecyclerView.Adapter<ProfileSavedListRecyclerAdapter.SavedListsViewHolder>(){
 
     private val itemLists = ArrayList<Pair<ItemList, List<Item>>>()
 
@@ -27,11 +30,10 @@ class ProfileSavedListRecyclerAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedListsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.fragment_schedule_recycler_item, parent, false)
-        view.recycler_schedule_inner.run {
+        val view = inflater.inflate(R.layout.fragment_profile_saved_recycler, parent, false)
+        view.recycler_profile.run {
             layoutManager = LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)
             setRecycledViewPool(RecyclerView.RecycledViewPool())
-            setHasFixedSize(true)
         }
         return SavedListsViewHolder(view)
     }
@@ -47,9 +49,14 @@ class ProfileSavedListRecyclerAdapter
         : RecyclerView.ViewHolder(view){
 
         fun onBind(position: Int) {
-            view.txt_schedule_day.text = setRecyclerItemText(position)
-            view.recycler_schedule_inner.adapter =
-                ProfileItemsInnerAdapter(itemLists[position].second as ArrayList<Item>)
+            view.txt_profile_title.text = setRecyclerItemText(position)
+            view.recycler_profile.adapter =
+                ProfileSavedItemsInnerAdapter(
+                    itemLists[position],
+                    animeListener,
+                    mangaListener,
+                    savedListListener
+                )
         }
 
         private fun setRecyclerItemText(position: Int): String {
@@ -59,8 +66,10 @@ class ProfileSavedListRecyclerAdapter
         }
 
         fun onClick(position: Int){
-            view.setOnClickListener {
-                Timber.e("item clicked: ${itemLists[position]}")
+            view.btn_profile_delete_list.setOnClickListener {
+                savedListListener.deleteList(itemLists[position].first)
+                itemLists.removeAt(position)
+                notifyItemRemoved(position)
             }
         }
     }

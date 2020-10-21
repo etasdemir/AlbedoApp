@@ -108,6 +108,12 @@
         <action
             android:id="@+id/action_navigation_profile_to_favouriteQuoteFragment"
             app:destination="@id/favouriteQuoteFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_animeDetailFragment"
+            app:destination="@id/animeDetailFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_mangaDetailFragment"
+            app:destination="@id/mangaDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteQuoteFragment"

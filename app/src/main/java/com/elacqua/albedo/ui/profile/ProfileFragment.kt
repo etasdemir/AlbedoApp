@@ -6,24 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
+import com.elacqua.albedo.ui.OnMangaSelectedListener
 import com.elacqua.albedo.ui.ViewModelFactory
-import kotlinx.android.synthetic.main.anime_detail_fragment.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelFactory
+    @Inject
+    lateinit var vmFactory: ViewModelFactory
     private val viewModel: ProfileViewModel by viewModels { vmFactory }
     private lateinit var savedListAdapter: ProfileSavedListRecyclerAdapter
     private lateinit var itemsAdapter: ProfileItemsRecyclerAdapter
@@ -35,14 +36,14 @@ class ProfileFragment : Fragment() {
         initItemsRecycler()
         initObservers()
 
-        txt_profile_favourite_quotes.setOnClickListener{
+        txt_profile_favourite_quotes.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_favouriteQuoteFragment)
         }
     }
 
     private fun initSavedListRecycler() {
+        setSavedListAdapter()
         val llm = LinearLayoutManager(requireContext())
-        savedListAdapter = ProfileSavedListRecyclerAdapter()
         recycler_profile_lists.run {
             layoutManager = llm
             adapter = savedListAdapter
@@ -51,14 +52,64 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun setSavedListAdapter() {
+        savedListAdapter = ProfileSavedListRecyclerAdapter(
+            object : OnAnimeSelectedListener {
+                override fun onClick(animeId: Int) {
+                    navigateToAnimeDetail(animeId)
+                }
+            },
+            object : OnMangaSelectedListener{
+                override fun onClick(mangaId: Int) {
+                    navigateToMangaDetail(mangaId)
+                }
+            },
+            object : OnSavedListSelected{
+                override fun deleteItemFromList(itemList: ItemList) {
+                    Timber.e("itemList: $itemList")
+                    viewModel.deleteItemFromList(itemList)
+                }
+
+                override fun deleteList(itemList: ItemList) {
+                    viewModel.deleteList(itemList)
+                }
+            }
+        )
+    }
+
     private fun initItemsRecycler() {
-        itemsAdapter = ProfileItemsRecyclerAdapter()
+        setItemsAdapter()
         recycler_profile_items.run {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = itemsAdapter
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
         }
+    }
+
+    private fun setItemsAdapter() {
+        itemsAdapter = ProfileItemsRecyclerAdapter(
+            object : OnAnimeSelectedListener {
+                override fun onClick(animeId: Int) {
+                    navigateToAnimeDetail(animeId)
+                }
+            },
+            object : OnMangaSelectedListener{
+                override fun onClick(mangaId: Int) {
+                    navigateToMangaDetail(mangaId)
+                }
+            }
+        )
+    }
+
+    private fun navigateToAnimeDetail(animeId: Int){
+        val args = bundleOf("animeId" to animeId)
+        findNavController().navigate(R.id.action_navigation_profile_to_animeDetailFragment, args)
+    }
+
+    private fun navigateToMangaDetail(mangaId: Int){
+        val args = bundleOf("mangaId" to mangaId)
+        findNavController().navigate(R.id.action_navigation_profile_to_mangaDetailFragment, args)
     }
 
     private fun initObservers() {

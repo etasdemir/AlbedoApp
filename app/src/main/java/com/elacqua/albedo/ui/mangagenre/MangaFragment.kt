@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.ui.OnMangaSelectedListener
@@ -38,8 +37,8 @@ class MangaFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = MangaRecyclerAdapter(
             object: OnMangaSelectedListener {
-                override fun onClick(manga: Manga) {
-                    navigateToMangaDetail(manga)
+                override fun onClick(mangaId: Int) {
+                    navigateToMangaDetail(mangaId)
                 }
             },
             object: OnMangaCategorySelectedListener{
@@ -63,8 +62,8 @@ class MangaFragment : Fragment() {
         recycler_view_manga.layoutManager = llm
     }
 
-    private fun navigateToMangaDetail(manga: Manga) {
-        val args = bundleOf("mangaId" to manga.malId)
+    private fun navigateToMangaDetail(mangaId: Int) {
+        val args = bundleOf("mangaId" to mangaId)
         findNavController().navigate(R.id.action_mangaFragment_to_mangaDetailFragment, args)
     }
 

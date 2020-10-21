@@ -44,7 +44,7 @@ class AnimeInnerRecyclerAdapter(
 
         fun viewOnClick(position: Int){
             view.setOnClickListener {
-                listener.onClick(animeList[position])
+                listener.onClick(animeList[position].malId)
             }
         }
     }

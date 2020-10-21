@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.elacqua.albedo.data.RemoteRepository
-import com.elacqua.albedo.data.local.LocalRepository
+import com.elacqua.albedo.data.LocalRepository
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime

@@ -36,15 +36,15 @@ class HomeFragment : Fragment() {
         recycler_home.layoutManager = llm
         adapter = HomeRecyclerAdapter(
         object: OnAnimeSelectedListener {
-            override fun onClick(anime: Anime) {
-                val args = bundleOf("animeId" to anime.malId)
+            override fun onClick(animeId: Int) {
+                val args = bundleOf("animeId" to animeId)
                 findNavController()
                     .navigate(R.id.action_navigation_home_to_animeDetailFragment, args)
             }
         },
         object: OnMangaSelectedListener {
-            override fun onClick(manga: Manga) {
-                val args = bundleOf("mangaId" to manga.malId)
+            override fun onClick(mangaId: Int) {
+                val args = bundleOf("mangaId" to mangaId)
                 findNavController()
                     .navigate(R.id.action_navigation_home_to_mangaDetailFragment, args)
             }

@@ -7,13 +7,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.local.model.Item
+import com.elacqua.albedo.ui.OnAnimeSelectedListener
+import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 import kotlinx.android.synthetic.main.fragment_schedule_recycler_item.view.*
 
 private const val NUMBER_OF_ITEM = 4
 
-class ProfileItemsRecyclerAdapter
-    : RecyclerView.Adapter<ProfileItemsRecyclerAdapter.ViewHolder>(){
+class ProfileItemsRecyclerAdapter(
+    private val animeListener: OnAnimeSelectedListener,
+    private val mangaListener: OnMangaSelectedListener
+) : RecyclerView.Adapter<ProfileItemsRecyclerAdapter.ViewHolder>(){
 
     private val watchedAnime = ArrayList<Item>()
     private val readManga = ArrayList<Item>()
@@ -58,19 +62,23 @@ class ProfileItemsRecyclerAdapter
         fun onBind(position: Int) {
             when (position){
                 0 -> {
-                    view.recycler_schedule_inner.adapter = ProfileItemsInnerAdapter(watchedAnime)
+                    view.recycler_schedule_inner.adapter =
+                        ProfileItemsInnerAdapter(watchedAnime, animeListener, mangaListener)
                     view.txt_schedule_day.text = view.resources.getString(R.string.profile_watched_anime)
                 }
                 1 -> {
-                    view.recycler_schedule_inner.adapter = ProfileItemsInnerAdapter(readManga)
+                    view.recycler_schedule_inner.adapter =
+                        ProfileItemsInnerAdapter(readManga, animeListener, mangaListener)
                     view.txt_schedule_day.text = view.resources.getString(R.string.profile_read_manga)
                 }
                 2 -> {
-                    view.recycler_schedule_inner.adapter = ProfileItemsInnerAdapter(favouriteAnime)
+                    view.recycler_schedule_inner.adapter =
+                        ProfileItemsInnerAdapter(favouriteAnime, animeListener, mangaListener)
                     view.txt_schedule_day.text = view.resources.getString(R.string.profile_favourite_anime)
                 }
                 else -> {
-                    view.recycler_schedule_inner.adapter = ProfileItemsInnerAdapter(favouriteManga)
+                    view.recycler_schedule_inner.adapter =
+                        ProfileItemsInnerAdapter(favouriteManga, animeListener, mangaListener)
                     view.txt_schedule_day.text = view.resources.getString(R.string.profile_favourite_manga)
                 }
             }

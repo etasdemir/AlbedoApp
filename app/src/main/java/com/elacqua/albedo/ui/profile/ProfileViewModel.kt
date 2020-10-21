@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elacqua.albedo.data.local.LocalRepository
+import com.elacqua.albedo.data.LocalRepository
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
-import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class ProfileViewModel @Inject constructor(
     val items: LiveData<List<Item>> = _items
 
     init {
-        viewModelScope.launch(IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             getFinishedItems()
             getEpisodeSum()
             getAllItems()
@@ -61,4 +61,17 @@ class ProfileViewModel @Inject constructor(
     private suspend fun getAllItems(){
         _items.postValue(localRepository.getAllItems())
     }
+
+    fun deleteItemFromList(itemList: ItemList){
+        viewModelScope.launch(Dispatchers.IO) {
+            localRepository.deleteItemFromList(itemList)
+        }
+    }
+
+    fun deleteList(itemList: ItemList){
+        viewModelScope.launch(Dispatchers.IO) {
+            localRepository.deleteList(itemList.name, itemList.type)
+        }
+    }
+
 }

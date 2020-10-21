@@ -40,8 +40,8 @@ class AnimeFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = AnimeRecyclerAdapter(
             object : OnAnimeSelectedListener {
-                override fun onClick(anime: Anime) {
-                    navigateToAnimeDetail(anime)
+                override fun onClick(animeId: Int) {
+                    navigateToAnimeDetail(animeId)
                 }
             },
             object : OnAnimeCategorySelectedListener {
@@ -64,9 +64,8 @@ class AnimeFragment : Fragment() {
         recycler_view_anime.adapter = adapter
     }
 
-    private fun navigateToAnimeDetail(anime: Anime) {
-        Timber.e("Anime clicked: $anime")
-        val bundle = bundleOf("animeId" to anime.malId)
+    private fun navigateToAnimeDetail(animeId: Int) {
+        val bundle = bundleOf("animeId" to animeId)
         findNavController().navigate(R.id.action_animeFragment_to_animeDetailFragment, bundle)
     }
 

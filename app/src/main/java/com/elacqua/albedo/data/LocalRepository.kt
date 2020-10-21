@@ -1,4 +1,4 @@
-package com.elacqua.albedo.data.local
+package com.elacqua.albedo.data
 
 import com.elacqua.albedo.data.local.dao.FavouriteQuoteDao
 import com.elacqua.albedo.data.local.dao.ItemDao
@@ -51,4 +51,7 @@ class LocalRepository @Inject constructor(
 
     suspend fun getItemsInList(itemType: String, listName: String) = itemListDao.getItemsInList(itemType, listName)
 
+    suspend fun deleteItemFromList (itemList: ItemList) = itemListDao.deleteItemFromList(itemList)
+
+    suspend fun deleteList(listName: String, type: String) = itemListDao.deleteList(listName, type)
 }

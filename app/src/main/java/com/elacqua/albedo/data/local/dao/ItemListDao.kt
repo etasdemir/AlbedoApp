@@ -1,20 +1,20 @@
 package com.elacqua.albedo.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
 
 @Dao
 interface ItemListDao{
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addItemToList (itemList: ItemList)
 
     @Delete
     suspend fun deleteItemFromList (itemList: ItemList)
+
+    @Query("delete from ItemList where list_name = :listName and type = :type")
+    suspend fun deleteList(listName: String, type: String)
 
     @Query ("select distinct list_name from ItemList where type = 'anime' ")
     suspend fun getAllListNamesAnime(): List<String>

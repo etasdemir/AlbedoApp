@@ -9,7 +9,7 @@ import com.elacqua.albedo.data.local.model.FavouriteQuote
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
 
-@Database(entities = [FavouriteQuote::class, Item::class, ItemList::class], version = 12, exportSchema = false)
+@Database(entities = [FavouriteQuote::class, Item::class, ItemList::class], version = 13, exportSchema = false)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun favouriteQuoteDao(): FavouriteQuoteDao
