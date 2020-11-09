@@ -16,9 +16,9 @@ object Utility {
         R.string.title_novels
     )
 
-    fun <T>setTextViewText(textView: TextView, elements: List<T>) {
+    fun <T> setTextViewText(textView: TextView, elements: List<T>) {
         var str = ""
-        for (element in elements){
+        for (element in elements) {
             str += "$element\n"
         }
         textView.text = str
@@ -37,7 +37,7 @@ object Utility {
             }
         }
 
-    fun getTimestamp(): String{
+    fun getTimestamp(): String {
         val timestamp = Timestamp(System.currentTimeMillis()).toString()
         return timestamp.replace(" ", "T")
     }

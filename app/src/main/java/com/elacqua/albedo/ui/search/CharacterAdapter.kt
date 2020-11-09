@@ -24,7 +24,7 @@ class CharacterAdapter(private val listener: OnSearchSelected<Character>) :
                 dataList[position].alternativeNames.toString()
 
             var animeNames = ""
-            for (anime in dataList[position].anime){
+            for (anime in dataList[position].anime) {
                 animeNames += "${anime.title}, "
             }
             view.txt_search_recycler_character_anime.text = animeNames

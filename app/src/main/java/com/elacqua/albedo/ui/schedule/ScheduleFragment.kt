@@ -20,8 +20,9 @@ import javax.inject.Inject
 
 class ScheduleFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val scheduleViewModel: ScheduleViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val scheduleViewModel: ScheduleViewModel by viewModels { vmFactory }
     private lateinit var adapter: ScheduleRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = ScheduleRecyclerAdapter(object: OnScheduleAnimeSelected {
+        adapter = ScheduleRecyclerAdapter(object : OnScheduleAnimeSelected {
             override fun onClick(anime: Anime) {
                 val args = bundleOf("animeId" to anime.malId)
                 findNavController()
@@ -42,8 +43,7 @@ class ScheduleFragment : Fragment() {
         val llm =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recycler_schedule.layoutManager = llm
-        recycler_schedule.adapter = adapter
-
+        recycler_schedule.setHasFixedSize(true)
     }
 
     private fun initObservers() {
@@ -53,17 +53,26 @@ class ScheduleFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
-
         return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
+
+    override fun onStart() {
+        recycler_schedule.adapter = adapter
+        super.onStart()
+    }
+
+    override fun onStop() {
+        recycler_schedule.adapter = null
+        super.onStop()
     }
 }

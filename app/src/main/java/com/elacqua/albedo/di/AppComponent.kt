@@ -34,7 +34,7 @@ interface AppComponent {
     fun inject(fragment: FavouriteQuoteFragment)
 
     @Component.Factory
-    interface Factory{
+    interface Factory {
         fun create(@BindsInstance appContext: Context): AppComponent
     }
 }

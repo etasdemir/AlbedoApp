@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.LocalRepository
+import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
 import com.elacqua.albedo.data.remote.jikan_api.model.Manga
@@ -38,11 +38,13 @@ class MangaDetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getLocalManga(manga: Manga){
+    private suspend fun getLocalManga(manga: Manga) {
         var result: Item? = localRepository.getItemWithId(manga.malId)
-        if (result == null){
-            result = Item(malId = manga.malId, type = "manga",
-                title = manga.title, imgUrl = manga.imageUrl)
+        if (result == null) {
+            result = Item(
+                malId = manga.malId, type = "manga",
+                title = manga.title, imgUrl = manga.imageUrl
+            )
             addItem(result)
         }
         _localManga.postValue(result)
@@ -54,13 +56,13 @@ class MangaDetailViewModel @Inject constructor(
         }
     }
 
-    fun addItemToItemList (itemList: ItemList){
+    fun addItemToItemList(itemList: ItemList) {
         viewModelScope.launch {
             localRepository.addItemToItemList(itemList)
         }
     }
 
-    fun getAllItemListManga(){
+    fun getAllItemListManga() {
         viewModelScope.launch {
             _mangaItemListNames.postValue(localRepository.getAllListNamesManga())
         }

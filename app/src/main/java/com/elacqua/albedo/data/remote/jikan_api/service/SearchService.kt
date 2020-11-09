@@ -11,27 +11,35 @@ interface SearchService {
     suspend fun getMostPopularAnime(): Top<Anime>
 
     @GET("search/{type}")
-    suspend fun getSearchResultAnime(@Path("type") type: String,
-                                     @Query("q") query: String,
-                                     @Query("page") page: Int)
+    suspend fun getSearchResultAnime(
+        @Path("type") type: String,
+        @Query("q") query: String,
+        @Query("page") page: Int
+    )
             : Result<Anime>
 
     @GET("search/{type}")
-    suspend fun getSearchResultManga(@Path("type") type: String,
-                                     @Query("q") query: String,
-                                     @Query("page") page: Int)
+    suspend fun getSearchResultManga(
+        @Path("type") type: String,
+        @Query("q") query: String,
+        @Query("page") page: Int
+    )
             : Result<Manga>
 
     @GET("search/{type}")
-    suspend fun getSearchResultPeople(@Path("type") type: String,
-                                      @Query("q") query: String,
-                                      @Query("page") page: Int)
+    suspend fun getSearchResultPeople(
+        @Path("type") type: String,
+        @Query("q") query: String,
+        @Query("page") page: Int
+    )
             : Result<People>
 
     @GET("search/{type}")
-    suspend fun getSearchResultCharacter(@Path("type") type: String,
-                                         @Query("q") query: String,
-                                         @Query("page") page: Int)
+    suspend fun getSearchResultCharacter(
+        @Path("type") type: String,
+        @Query("q") query: String,
+        @Query("page") page: Int
+    )
             : Result<Character>
 
 }

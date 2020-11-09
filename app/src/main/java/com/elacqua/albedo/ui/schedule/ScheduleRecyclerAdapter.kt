@@ -15,16 +15,17 @@ private const val GRID_SPAN_COUNT = 2
 
 class ScheduleRecyclerAdapter(
     private val listener: OnScheduleAnimeSelected
-)
-    : RecyclerView.Adapter<ScheduleRecyclerAdapter.ScheduleViewHolder>(){
+) : RecyclerView.Adapter<ScheduleRecyclerAdapter.ScheduleViewHolder>() {
 
     private val scheduleDayList = ArrayList<List<Anime>>()
 
-    fun setSchedule(schedule: Schedule){
+    fun setSchedule(schedule: Schedule) {
         scheduleDayList.clear()
         scheduleDayList.addAll(
-            arrayListOf(schedule.monday, schedule.tuesday, schedule.wednesday,
-            schedule.thursday, schedule.friday, schedule.saturday, schedule.sunday)
+            arrayListOf(
+                schedule.monday, schedule.tuesday, schedule.wednesday,
+                schedule.thursday, schedule.friday, schedule.saturday, schedule.sunday
+            )
         )
         notifyDataSetChanged()
     }
@@ -33,10 +34,12 @@ class ScheduleRecyclerAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val view =
             inflater.inflate(R.layout.fragment_schedule_recycler_item, parent, false)
-        view.recycler_schedule_inner.layoutManager =
-            GridLayoutManager(parent.context, GRID_SPAN_COUNT)
-        view.recycler_schedule_inner.setRecycledViewPool(RecyclerView.RecycledViewPool())
-
+        view.recycler_schedule_inner.run {
+            layoutManager =
+                GridLayoutManager(parent.context, GRID_SPAN_COUNT)
+            setRecycledViewPool(RecyclerView.RecycledViewPool())
+            setHasFixedSize(true)
+        }
         return ScheduleViewHolder(view)
     }
 
@@ -48,9 +51,9 @@ class ScheduleRecyclerAdapter(
         return scheduleDayList.size
     }
 
-    inner class ScheduleViewHolder(private val view: View): RecyclerView.ViewHolder(view){
+    inner class ScheduleViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindView(position: Int){
+        fun bindView(position: Int) {
             view.txt_schedule_day.text = WeekDays.getDayByIndex(position)
             view.recycler_schedule_inner.adapter =
                 ScheduleInnerFragmentAdapter(scheduleDayList[position], listener)

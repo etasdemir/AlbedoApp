@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Item (
+data class Item(
     @PrimaryKey val malId: Int = 0,
     val title: String,
     val imgUrl: String,

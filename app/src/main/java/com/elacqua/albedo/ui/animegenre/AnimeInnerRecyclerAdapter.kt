@@ -13,8 +13,7 @@ import kotlinx.android.synthetic.main.recycler_item.view.*
 class AnimeInnerRecyclerAdapter(
     private val animeList: List<Anime>,
     private val listener: OnAnimeSelectedListener
-)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,8 +30,7 @@ class AnimeInnerRecyclerAdapter(
         return animeList.size
     }
 
-    inner class ItemViewHolder(private val view: View)
-        : RecyclerView.ViewHolder(view){
+    inner class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView(position: Int) {
             view.txt_item_name.text = animeList[position].title
@@ -42,7 +40,7 @@ class AnimeInnerRecyclerAdapter(
                 .into(view.img_item_image)
         }
 
-        fun viewOnClick(position: Int){
+        fun viewOnClick(position: Int) {
             view.setOnClickListener {
                 listener.onClick(animeList[position].malId)
             }

@@ -12,8 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.Anime
-import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -21,8 +19,9 @@ import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val homeViewModel: HomeViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val homeViewModel: HomeViewModel by viewModels { vmFactory }
     private lateinit var adapter: HomeRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,29 +33,29 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recycler_home.layoutManager = llm
+        recycler_home.setHasFixedSize(true)
         adapter = HomeRecyclerAdapter(
-        object: OnAnimeSelectedListener {
-            override fun onClick(animeId: Int) {
-                val args = bundleOf("animeId" to animeId)
-                findNavController()
-                    .navigate(R.id.action_navigation_home_to_animeDetailFragment, args)
-            }
-        },
-        object: OnMangaSelectedListener {
-            override fun onClick(mangaId: Int) {
-                val args = bundleOf("mangaId" to mangaId)
-                findNavController()
-                    .navigate(R.id.action_navigation_home_to_mangaDetailFragment, args)
-            }
-        },
-        object: OnGenreSelected{
-            override fun onGenreClick(type: Int) {
-                val args = bundleOf("genreType" to type)
-                findNavController()
-                    .navigate(R.id.action_navigation_home_to_genreFragment, args)
-            }
-        })
-        recycler_home.adapter = adapter
+            object : OnAnimeSelectedListener {
+                override fun onClick(animeId: Int) {
+                    val args = bundleOf("animeId" to animeId)
+                    findNavController()
+                        .navigate(R.id.action_navigation_home_to_animeDetailFragment, args)
+                }
+            },
+            object : OnMangaSelectedListener {
+                override fun onClick(mangaId: Int) {
+                    val args = bundleOf("mangaId" to mangaId)
+                    findNavController()
+                        .navigate(R.id.action_navigation_home_to_mangaDetailFragment, args)
+                }
+            },
+            object : OnGenreSelected {
+                override fun onGenreClick(type: Int) {
+                    val args = bundleOf("genreType" to type)
+                    findNavController()
+                        .navigate(R.id.action_navigation_home_to_genreFragment, args)
+                }
+            })
     }
 
     private fun initObservers() {
@@ -113,5 +112,15 @@ class HomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
+
+    override fun onStart() {
+        recycler_home.adapter = adapter
+        super.onStart()
+    }
+
+    override fun onPause() {
+        recycler_home.adapter = null
+        super.onPause()
     }
 }

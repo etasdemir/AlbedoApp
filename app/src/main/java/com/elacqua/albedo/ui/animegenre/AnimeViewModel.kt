@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.LocalRepository
+import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.local.model.FavouriteQuote
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
@@ -32,19 +32,21 @@ class AnimeViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getQuote()
-            getAnimeByGenres(AnimeGenreId.Action, AnimeGenreId.Adventure, AnimeGenreId.Drama,
-                    AnimeGenreId.Fantasy)
+            getAnimeByGenres(
+                AnimeGenreId.Action, AnimeGenreId.Adventure, AnimeGenreId.Drama,
+                AnimeGenreId.Fantasy
+            )
         }
     }
 
-    private suspend fun getQuote(){
+    private suspend fun getQuote() {
         val result = remoteRepository.getQuote()
-        if (result.data.isNullOrEmpty()){
+        if (result.data.isNullOrEmpty()) {
             _quote.postValue(Quote())
             return
         }
 
-        if (isQuoteFavorite(result)){
+        if (isQuoteFavorite(result)) {
             result.data[0].isFavourite = true
         }
         _quote.postValue(result.data[0])
@@ -53,8 +55,8 @@ class AnimeViewModel @Inject constructor(
     private suspend fun isQuoteFavorite(quoteList: QuoteList): Boolean {
         val favouriteQuotes = localRepository.getAllFavouriteQuotes()
         val hash = getQuoteMd5Hash(quoteList.data[0])
-        for (quotes in favouriteQuotes){
-            if (quotes.id == hash){
+        for (quotes in favouriteQuotes) {
+            if (quotes.id == hash) {
                 return true
             }
         }
@@ -72,7 +74,7 @@ class AnimeViewModel @Inject constructor(
         _animeGenres.postValue(result)
     }
 
-    private suspend fun getAnimeById(id: Int){
+    private suspend fun getAnimeById(id: Int) {
         val result = remoteRepository.getAnimeByGenreId(id)
         _animeGenre.postValue(result)
     }
@@ -81,7 +83,7 @@ class AnimeViewModel @Inject constructor(
         viewModelScope.launch {
             val id = getQuoteMd5Hash(quote)
             val favQuote = FavouriteQuote(id, quote.anime, quote.character, quote.quote)
-            if (quote.isFavourite){
+            if (quote.isFavourite) {
                 quote.isFavourite = false
                 removeQuoteFromFavourite(favQuote)
             } else {

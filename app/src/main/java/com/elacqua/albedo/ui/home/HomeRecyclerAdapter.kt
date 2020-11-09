@@ -18,12 +18,11 @@ import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 
 private const val ROW_COUNT = 5
 
-class HomeRecyclerAdapter (
+class HomeRecyclerAdapter(
     private val animeListener: OnAnimeSelectedListener,
     private val mangaListener: OnMangaSelectedListener,
     private val genreSelected: OnGenreSelected
-    )
-    : RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder>(){
+) : RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder>() {
 
     private val airings = ArrayList<Anime>()
     private val upcomings = ArrayList<Anime>()
@@ -31,27 +30,27 @@ class HomeRecyclerAdapter (
     private val manga = ArrayList<Manga>()
     private val novels = ArrayList<Manga>()
 
-    fun setAirings(airingList: List<Anime>){
+    fun setAirings(airingList: List<Anime>) {
         airings.addAll(airingList)
         notifyDataSetChanged()
     }
 
-    fun setUpcomings(upcomingList: List<Anime>){
+    fun setUpcomings(upcomingList: List<Anime>) {
         upcomings.addAll(upcomingList)
         notifyDataSetChanged()
     }
 
-    fun setMovies(movieList: List<Anime>){
+    fun setMovies(movieList: List<Anime>) {
         movies.addAll(movieList)
         notifyDataSetChanged()
     }
 
-    fun setManga(mangaList: List<Manga>){
+    fun setManga(mangaList: List<Manga>) {
         manga.addAll(mangaList)
         notifyDataSetChanged()
     }
 
-    fun setNovels(novelList: List<Manga>){
+    fun setNovels(novelList: List<Manga>) {
         novels.addAll(novelList)
         notifyDataSetChanged()
     }
@@ -70,14 +69,14 @@ class HomeRecyclerAdapter (
         return ROW_COUNT
     }
 
-    inner class HomeViewHolder(private val view: View): RecyclerView.ViewHolder(view){
+    inner class HomeViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun onBind(position: Int){
+        fun onBind(position: Int) {
             view.txt_item_title.text =
                 view.context.resources.getString(Utility.homeCategoryTitles[position])
             view.recycler_inner.layoutManager =
                 LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
-            view.recycler_inner.adapter = when (position){
+            view.recycler_inner.adapter = when (position) {
                 0 -> {
                     onClick(GenreType.TOP_AIRING)
                     AnimeInnerRecyclerAdapter(airings, animeListener)
@@ -101,7 +100,7 @@ class HomeRecyclerAdapter (
             }
         }
 
-        fun onClick(type: Int){
+        fun onClick(type: Int) {
             view.setOnClickListener {
                 genreSelected.onGenreClick(type)
             }
@@ -109,6 +108,6 @@ class HomeRecyclerAdapter (
     }
 }
 
-interface OnGenreSelected{
+interface OnGenreSelected {
     fun onGenreClick(type: Int)
 }

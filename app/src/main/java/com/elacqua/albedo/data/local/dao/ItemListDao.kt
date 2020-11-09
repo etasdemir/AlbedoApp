@@ -5,18 +5,18 @@ import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
 
 @Dao
-interface ItemListDao{
+interface ItemListDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addItemToList (itemList: ItemList)
+    suspend fun addItemToList(itemList: ItemList)
 
     @Delete
-    suspend fun deleteItemFromList (itemList: ItemList)
+    suspend fun deleteItemFromList(itemList: ItemList)
 
     @Query("delete from ItemList where list_name = :listName and type = :type")
     suspend fun deleteList(listName: String, type: String)
 
-    @Query ("select distinct list_name from ItemList where type = 'anime' ")
+    @Query("select distinct list_name from ItemList where type = 'anime' ")
     suspend fun getAllListNamesAnime(): List<String>
 
     @Query("select distinct list_name from ItemList where type = 'manga' ")

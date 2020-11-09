@@ -13,12 +13,11 @@ import com.elacqua.albedo.ui.OnQuoteClickListener
 import kotlinx.android.synthetic.main.fragment_recycler_header.view.*
 import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 
-class MangaRecyclerAdapter (
+class MangaRecyclerAdapter(
     private val listener: OnMangaSelectedListener,
     private val categorySelectedListener: OnMangaCategorySelectedListener,
     private val quoteListener: OnQuoteClickListener
-)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER = 0
     private val TYPE_ITEM = 1
     private var quote: Quote = Quote()
@@ -29,12 +28,12 @@ class MangaRecyclerAdapter (
         notifyItemChanged(0)
     }
 
-    fun addAnimeGenre(mangaGenre: MangaGenre) {
+    fun addMangaGenre(mangaGenre: MangaGenre) {
         mangaGenreList.add(mangaGenre)
         notifyDataSetChanged()
     }
 
-    fun addAllAnimeGenres(mangaGenres: ArrayList<MangaGenre>) {
+    fun addAllMangaGenres(mangaGenres: ArrayList<MangaGenre>) {
         mangaGenreList.addAll(mangaGenres)
         notifyDataSetChanged()
     }
@@ -86,7 +85,7 @@ class MangaRecyclerAdapter (
             view.txt_quote.text = quote.quote
             view.txt_quote_anime.text = quote.anime
             view.txt_quote_character.text = quote.character
-            if (quote.isFavourite){
+            if (quote.isFavourite) {
                 view.btn_quote_favourite.setImageResource(R.drawable.ic_quote_favorite_36)
             }
         }
@@ -103,7 +102,7 @@ class MangaRecyclerAdapter (
 
     inner class VHItem(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun viewOnClick(position: Int){
+        fun viewOnClick(position: Int) {
             view.setOnClickListener {
                 categorySelectedListener.onClick(mangaGenreList[position])
             }
@@ -119,5 +118,5 @@ class MangaRecyclerAdapter (
 }
 
 interface OnMangaCategorySelectedListener {
-    fun onClick (mangaGenre: MangaGenre)
+    fun onClick(mangaGenre: MangaGenre)
 }

@@ -9,11 +9,10 @@ import com.elacqua.albedo.R
 import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
-class ScheduleInnerFragmentAdapter (
+class ScheduleInnerFragmentAdapter(
     private val animeList: List<Anime>,
     private val listener: OnScheduleAnimeSelected
-)
-    : RecyclerView.Adapter<ScheduleInnerFragmentAdapter.ViewHolder>(){
+) : RecyclerView.Adapter<ScheduleInnerFragmentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,14 +31,14 @@ class ScheduleInnerFragmentAdapter (
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindView(position: Int){
+        fun bindView(position: Int) {
             view.txt_item_name.text = animeList[position].title
             Glide.with(view)
                 .load(animeList[position].imageUrl)
                 .into(view.img_item_image)
         }
 
-        fun onClick(position: Int){
+        fun onClick(position: Int) {
             view.setOnClickListener {
                 listener.onClick(animeList[position])
             }
@@ -47,6 +46,6 @@ class ScheduleInnerFragmentAdapter (
     }
 }
 
-interface OnScheduleAnimeSelected{
+interface OnScheduleAnimeSelected {
     fun onClick(anime: Anime)
 }

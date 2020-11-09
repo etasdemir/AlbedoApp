@@ -5,12 +5,10 @@
     <item
         android:id="@+id/fragment_home_menu_anime"
         android:title="@string/title_menu_anime"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/fragment_home_menu_manga"
         android:title="@string/title_menu_manga"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 </menu>

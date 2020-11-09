@@ -23,8 +23,9 @@ import javax.inject.Inject
 
 class MangaFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val viewModel: MangaViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: MangaViewModel by viewModels { vmFactory }
     private lateinit var adapter: MangaRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,17 +37,17 @@ class MangaFragment : Fragment() {
 
     private fun initRecyclerView() {
         adapter = MangaRecyclerAdapter(
-            object: OnMangaSelectedListener {
+            object : OnMangaSelectedListener {
                 override fun onClick(mangaId: Int) {
                     navigateToMangaDetail(mangaId)
                 }
             },
-            object: OnMangaCategorySelectedListener{
+            object : OnMangaCategorySelectedListener {
                 override fun onClick(mangaGenre: MangaGenre) {
                     navigateToMangaCategory(mangaGenre)
                 }
             },
-            object : OnQuoteClickListener{
+            object : OnQuoteClickListener {
                 override fun onRefreshClick() {
                     viewModel.refreshQuote()
                 }
@@ -57,9 +58,9 @@ class MangaFragment : Fragment() {
             }
         )
         val llm =
-            LinearLayoutManager(recycler_view_manga.context, LinearLayoutManager.VERTICAL, false)
-        recycler_view_manga.adapter = adapter
+            LinearLayoutManager(requireContext())
         recycler_view_manga.layoutManager = llm
+        recycler_view_manga.setHasFixedSize(true)
     }
 
     private fun navigateToMangaDetail(mangaId: Int) {
@@ -86,13 +87,13 @@ class MangaFragment : Fragment() {
 
     private fun setMangaGenreObserver() {
         viewModel.mangaGenre.observe(viewLifecycleOwner, {
-            adapter.addAnimeGenre(it)
+            adapter.addMangaGenre(it)
         })
     }
 
     private fun setMangaGenresObserver() {
         viewModel.mangaGenres.observe(viewLifecycleOwner, {
-            adapter.addAllAnimeGenres(it)
+            adapter.addAllMangaGenres(it)
         })
     }
 
@@ -106,5 +107,15 @@ class MangaFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
+
+    override fun onStart() {
+        recycler_view_manga.adapter = adapter
+        super.onStart()
+    }
+
+    override fun onPause() {
+        recycler_view_manga.adapter = null
+        super.onPause()
     }
 }

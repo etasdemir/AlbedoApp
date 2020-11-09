@@ -13,20 +13,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.data.remote.jikan_api.model.AnimeGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnQuoteClickListener
 import com.elacqua.albedo.util.GenreType
 import kotlinx.android.synthetic.main.anime_fragment.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class AnimeFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val viewModel: AnimeViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: AnimeViewModel by viewModels { vmFactory }
     private lateinit var adapter: AnimeRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,9 +58,9 @@ class AnimeFragment : Fragment() {
                 }
             }
         )
-        val layoutManager = LinearLayoutManager(recycler_view_anime.context)
+        val layoutManager = LinearLayoutManager(requireContext())
         recycler_view_anime.layoutManager = layoutManager
-        recycler_view_anime.adapter = adapter
+        recycler_view_anime.setHasFixedSize(true)
     }
 
     private fun navigateToAnimeDetail(animeId: Int) {
@@ -109,5 +108,15 @@ class AnimeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
+
+    override fun onStart() {
+        recycler_view_anime.adapter = adapter
+        super.onStart()
+    }
+
+    override fun onStop() {
+        recycler_view_anime.adapter = null
+        super.onStop()
     }
 }

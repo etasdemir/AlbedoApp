@@ -49,8 +49,11 @@ class SearchFragment : Fragment() {
         })
 
         val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recycler_search.adapter = initialAdapter
-        recycler_search.layoutManager = llm
+        recycler_search.run {
+            adapter = initialAdapter
+            layoutManager = llm
+            setHasFixedSize(true)
+        }
     }
 
     private fun initObservers() {

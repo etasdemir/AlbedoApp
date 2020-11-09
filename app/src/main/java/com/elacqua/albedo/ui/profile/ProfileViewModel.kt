@@ -39,36 +39,36 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getFinishedItems(){
+    private suspend fun getFinishedItems() {
         _watchedAnimeCount.postValue(localRepository.getFinishedItemCountByType("anime"))
         _readMangaCount.postValue(localRepository.getFinishedItemCountByType("manga"))
     }
 
-    private suspend fun getEpisodeSum(){
+    private suspend fun getEpisodeSum() {
         _episodeSum.postValue(localRepository.getWatchedEpisodesSum())
     }
 
     private suspend fun getItemLists() {
         val listItemsPairList = ArrayList<Pair<ItemList, List<Item>>>()
         val lists = localRepository.getAllLists()
-        for (list in lists){
+        for (list in lists) {
             val items = localRepository.getItemsInList(list.type, list.name)
             listItemsPairList.add(Pair(list, items))
         }
         _itemLists.postValue(listItemsPairList)
     }
 
-    private suspend fun getAllItems(){
+    private suspend fun getAllItems() {
         _items.postValue(localRepository.getAllItems())
     }
 
-    fun deleteItemFromList(itemList: ItemList){
+    fun deleteItemFromList(itemList: ItemList) {
         viewModelScope.launch(Dispatchers.IO) {
             localRepository.deleteItemFromList(itemList)
         }
     }
 
-    fun deleteList(itemList: ItemList){
+    fun deleteList(itemList: ItemList) {
         viewModelScope.launch(Dispatchers.IO) {
             localRepository.deleteList(itemList.name, itemList.type)
         }

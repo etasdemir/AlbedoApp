@@ -14,7 +14,7 @@ class ScheduleViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _scheduleAllDays = MutableLiveData<Schedule>()
-    val scheduleAllDays : LiveData<Schedule> = _scheduleAllDays
+    val scheduleAllDays: LiveData<Schedule> = _scheduleAllDays
 
     init {
         viewModelScope.launch {
@@ -22,7 +22,7 @@ class ScheduleViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getScheduleAllDays(){
+    private suspend fun getScheduleAllDays() {
         val result = remoteRepository.getScheduleAllDays()
         _scheduleAllDays.postValue(result)
     }

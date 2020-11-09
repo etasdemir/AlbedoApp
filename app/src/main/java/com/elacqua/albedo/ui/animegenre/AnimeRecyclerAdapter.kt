@@ -16,12 +16,11 @@ import kotlinx.android.synthetic.main.fragment_recycler_item.view.*
 private const val TYPE_HEADER = 0
 private const val TYPE_ITEM = 1
 
-class AnimeRecyclerAdapter (
+class AnimeRecyclerAdapter(
     private val listener: OnAnimeSelectedListener,
     private val categorySelectedListener: OnAnimeCategorySelectedListener,
     private val quoteListener: OnQuoteClickListener
-)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var quote = Quote()
     private var animeGenreList: ArrayList<AnimeGenre> = ArrayList()
@@ -54,6 +53,7 @@ class AnimeRecyclerAdapter (
                 layoutManager =
                     LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
                 setRecycledViewPool(RecyclerView.RecycledViewPool())
+                setHasFixedSize(true)
             }
             VHItem(view)
         }
@@ -88,12 +88,12 @@ class AnimeRecyclerAdapter (
             view.txt_quote.text = quote.quote
             view.txt_quote_anime.text = quote.anime
             view.txt_quote_character.text = quote.character
-            if (quote.isFavourite){
+            if (quote.isFavourite) {
                 view.btn_quote_favourite.setImageResource(R.drawable.ic_quote_favorite_36)
             }
         }
 
-        fun onClick(){
+        fun onClick() {
             view.btn_quote_refresh.setOnClickListener {
                 quoteListener.onRefreshClick()
             }
@@ -105,7 +105,7 @@ class AnimeRecyclerAdapter (
 
     inner class VHItem(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun viewOnClick(position: Int){
+        fun viewOnClick(position: Int) {
             view.setOnClickListener {
                 categorySelectedListener.onClick(animeGenreList[position])
             }
@@ -120,6 +120,6 @@ class AnimeRecyclerAdapter (
     }
 }
 
-interface OnAnimeCategorySelectedListener{
+interface OnAnimeCategorySelectedListener {
     fun onClick(animeGenre: AnimeGenre)
 }

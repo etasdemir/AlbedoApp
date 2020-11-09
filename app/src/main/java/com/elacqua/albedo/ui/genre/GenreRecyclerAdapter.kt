@@ -12,20 +12,20 @@ import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.recycler_item.view.*
 
-class GenreRecyclerAdapter(private val animeListener: OnAnimeSelectedListener,
-                           private val mangaListener: OnMangaSelectedListener
-)
-    : RecyclerView.Adapter<GenreRecyclerAdapter.GenreViewHolder>(){
+class GenreRecyclerAdapter(
+    private val animeListener: OnAnimeSelectedListener,
+    private val mangaListener: OnMangaSelectedListener
+) : RecyclerView.Adapter<GenreRecyclerAdapter.GenreViewHolder>() {
 
     private val animes = ArrayList<Anime>()
     private val mangas = ArrayList<Manga>()
 
-    fun addAnimeList(animeList: List<Anime>){
+    fun addAnimeList(animeList: List<Anime>) {
         animes.addAll(animeList)
         notifyItemInserted(animes.size)
     }
 
-    fun addMangaList(mangaList: List<Manga>){
+    fun addMangaList(mangaList: List<Manga>) {
         mangas.addAll(mangaList)
         notifyItemInserted(mangas.size)
     }
@@ -38,7 +38,7 @@ class GenreRecyclerAdapter(private val animeListener: OnAnimeSelectedListener,
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
         holder.run {
-            if (animes.isEmpty()){
+            if (animes.isEmpty()) {
                 bindManga(position)
                 onMangaClick(position)
             } else {
@@ -52,9 +52,9 @@ class GenreRecyclerAdapter(private val animeListener: OnAnimeSelectedListener,
         return animes.size + mangas.size
     }
 
-    inner class GenreViewHolder(private val view: View): RecyclerView.ViewHolder(view){
+    inner class GenreViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindAnime(position: Int){
+        fun bindAnime(position: Int) {
             view.txt_item_name.text = animes[position].title
             Glide.with(view.context).load(animes[position].imageUrl).into(view.img_item_image)
         }
@@ -65,7 +65,7 @@ class GenreRecyclerAdapter(private val animeListener: OnAnimeSelectedListener,
             }
         }
 
-        fun bindManga(position: Int){
+        fun bindManga(position: Int) {
             view.txt_item_name.text = mangas[position].title
             Glide.with(view.context).load(mangas[position].imageUrl).into(view.img_item_image)
         }

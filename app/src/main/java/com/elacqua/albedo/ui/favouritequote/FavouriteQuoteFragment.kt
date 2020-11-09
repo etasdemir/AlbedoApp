@@ -1,13 +1,12 @@
 package com.elacqua.albedo.ui.favouritequote
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.AlbedoApp
@@ -19,7 +18,8 @@ import javax.inject.Inject
 
 class FavouriteQuoteFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelFactory
+    @Inject
+    lateinit var vmFactory: ViewModelFactory
     private val viewModel: FavouriteQuoteViewModel by viewModels { vmFactory }
     private lateinit var rvAdapter: FavouriteQuoteAdapter
 

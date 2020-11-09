@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -24,8 +25,9 @@ import javax.inject.Inject
 
 class AnimeDetailFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val viewModel: AnimeDetailViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: AnimeDetailViewModel by viewModels { vmFactory }
     private lateinit var item: Item
     private lateinit var dialogAdapter: DialogItemListAdapter
     private lateinit var dialog: Dialog
@@ -81,10 +83,10 @@ class AnimeDetailFragment : Fragment() {
     private fun initLocalAnimeObserver() {
         viewModel.animeLocal.observe(viewLifecycleOwner, {
             item = it
-            if (it.isFavourite){
+            if (it.isFavourite) {
                 btn_animedetail_favourite.setImageResource(R.drawable.ic_quote_favorite_36)
             }
-            if (it.isFinished){
+            if (it.isFinished) {
                 btn_animedetail_watched.setImageResource(R.drawable.ic_true_36)
             }
         })
@@ -97,7 +99,7 @@ class AnimeDetailFragment : Fragment() {
     }
 
     private fun initDialogAdapter() {
-        dialogAdapter = DialogItemListAdapter(object: DialogItemClickListener{
+        dialogAdapter = DialogItemListAdapter(object : DialogItemClickListener {
             override fun onClick(itemListName: String) {
                 val itemList = ItemList(item.malId, itemListName, "anime")
                 viewModel.addItemToItemList(itemList)
@@ -118,7 +120,7 @@ class AnimeDetailFragment : Fragment() {
 
     private fun watchedButtonClicked() {
         item.isFinished = !item.isFinished
-        if (item.isFinished){
+        if (item.isFinished) {
             btn_animedetail_watched.setImageResource(R.drawable.ic_true_36)
         } else {
             btn_animedetail_watched.setImageResource(R.drawable.ic_false_36)
@@ -156,7 +158,7 @@ class AnimeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
         return inflater.inflate(R.layout.anime_detail_fragment, container, false)
     }
 

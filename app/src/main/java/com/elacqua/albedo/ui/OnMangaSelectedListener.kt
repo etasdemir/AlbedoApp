@@ -1,5 +1,5 @@
 package com.elacqua.albedo.ui
 
-interface OnMangaSelectedListener{
+interface OnMangaSelectedListener {
     fun onClick(mangaId: Int)
 }

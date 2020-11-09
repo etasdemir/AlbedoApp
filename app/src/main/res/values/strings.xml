@@ -44,7 +44,7 @@
     <string name="detail_volumes">Volume</string>
     <string name="detail_authors">Authors</string>
     <string name="detail_read">Read</string>
-    
+
     // Dialog Add
     <string name="dialog_add_title">Save to …</string>
     <string name="dialog_add_new_list">Create New List</string>

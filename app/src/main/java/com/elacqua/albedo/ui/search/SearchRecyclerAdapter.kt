@@ -4,12 +4,12 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.elacqua.albedo.data.remote.jikan_api.model.SearchResult
 
-abstract class SearchRecyclerAdapter <T>
+abstract class SearchRecyclerAdapter<T>
     : SearchResult, RecyclerView.Adapter<SearchRecyclerAdapter<T>.SearchViewHolder>() {
 
     protected val dataList = ArrayList<T>()
 
-    fun setDataList(data: List<T>){
+    fun setDataList(data: List<T>) {
         dataList.clear()
         dataList.addAll(data)
         notifyDataSetChanged()
@@ -24,7 +24,7 @@ abstract class SearchRecyclerAdapter <T>
         return dataList.size
     }
 
-    abstract inner class SearchViewHolder(view: View): RecyclerView.ViewHolder(view){
+    abstract inner class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         abstract fun onBind(position: Int)
         abstract fun onClick(position: Int)
@@ -32,6 +32,6 @@ abstract class SearchRecyclerAdapter <T>
     }
 }
 
-interface OnSearchSelected<T>{
+interface OnSearchSelected<T> {
     fun onClick(item: T)
 }

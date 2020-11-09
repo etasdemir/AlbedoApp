@@ -1,6 +1,6 @@
 package com.elacqua.albedo.util
 
-object AnimeGenreId{
+object AnimeGenreId {
     const val Action = 1
     const val Adventure = 2
     const val Cars = 3
@@ -46,7 +46,7 @@ object AnimeGenreId{
     const val Josei = 43
 }
 
-object MangaGenreId{
+object MangaGenreId {
     const val Action = 1
     const val Adventure = 2
     const val Cars = 3

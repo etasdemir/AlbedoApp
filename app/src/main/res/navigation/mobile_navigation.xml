@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
@@ -10,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.elacqua.albedo.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_animeFragment"
             app:destination="@id/animeFragment" />
@@ -32,7 +31,7 @@
         android:id="@+id/navigation_search"
         android:name="com.elacqua.albedo.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_navigation_search_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
@@ -45,7 +44,7 @@
         android:id="@+id/navigation_schedule"
         android:name="com.elacqua.albedo.ui.schedule.ScheduleFragment"
         android:label="@string/title_schedule"
-        tools:layout="@layout/fragment_schedule" >
+        tools:layout="@layout/fragment_schedule">
         <action
             android:id="@+id/action_navigation_schedule_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
@@ -67,7 +66,7 @@
         android:id="@+id/animeFragment"
         android:name="com.elacqua.albedo.ui.animegenre.AnimeFragment"
         android:label=""
-        tools:layout="@layout/anime_fragment" >
+        tools:layout="@layout/anime_fragment">
         <action
             android:id="@+id/action_animeFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
@@ -79,7 +78,7 @@
         android:id="@+id/mangaFragment"
         android:name="com.elacqua.albedo.ui.mangagenre.MangaFragment"
         android:label=""
-        tools:layout="@layout/manga_fragment" >
+        tools:layout="@layout/manga_fragment">
         <action
             android:id="@+id/action_mangaFragment_to_mangaDetailFragment"
             app:destination="@id/mangaDetailFragment" />
@@ -91,7 +90,7 @@
         android:id="@+id/genreFragment"
         android:name="com.elacqua.albedo.ui.genre.GenreFragment"
         android:label="genre_fragment"
-        tools:layout="@layout/genre_fragment" >
+        tools:layout="@layout/genre_fragment">
         <action
             android:id="@+id/action_genreFragment_to_animeDetailFragment"
             app:destination="@id/animeDetailFragment" />
@@ -104,7 +103,7 @@
         android:id="@+id/navigation_profile"
         android:name="com.elacqua.albedo.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/profile_fragment" >
+        tools:layout="@layout/profile_fragment">
         <action
             android:id="@+id/action_navigation_profile_to_favouriteQuoteFragment"
             app:destination="@id/favouriteQuoteFragment" />

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.LocalRepository
+import com.elacqua.albedo.data.RemoteRepository
 import com.elacqua.albedo.data.local.model.FavouriteQuote
 import com.elacqua.albedo.data.remote.jikan_api.model.MangaGenre
 import com.elacqua.albedo.data.remote.quote_api.Quote
@@ -32,7 +32,8 @@ class MangaViewModel @Inject constructor(
         getQuote()
         getMangaByGenres(
             MangaGenreId.Mystery, MangaGenreId.Demons, MangaGenreId.Historical,
-            MangaGenreId.Magic)
+            MangaGenreId.Magic
+        )
     }
 
     private fun getMangaByGenres(vararg id: Int) {
@@ -42,19 +43,19 @@ class MangaViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getMangaById(id: Int){
+    private suspend fun getMangaById(id: Int) {
         val result = remoteRepository.getMangaByGenreId(id)
         _mangaGenre.postValue(result)
     }
 
-    private fun getQuote(){
+    private fun getQuote() {
         viewModelScope.launch {
             val result = remoteRepository.getQuote()
-            if (result.data.isNullOrEmpty()){
+            if (result.data.isNullOrEmpty()) {
                 _quote.postValue(Quote())
             } else {
                 val value = result.data[0]
-                if (isQuoteFavorite(value)){
+                if (isQuoteFavorite(value)) {
                     value.isFavourite = true
                 }
                 _quote.postValue(value)
@@ -65,8 +66,8 @@ class MangaViewModel @Inject constructor(
     private suspend fun isQuoteFavorite(quote: Quote): Boolean {
         val favouriteQuotes = localRepository.getAllFavouriteQuotes()
         val hash = Utility.getQuoteMd5Hash(quote)
-        for (quotes in favouriteQuotes){
-            if (quotes.id == hash){
+        for (quotes in favouriteQuotes) {
+            if (quotes.id == hash) {
                 return true
             }
         }
@@ -80,7 +81,7 @@ class MangaViewModel @Inject constructor(
     fun favouriteClicked(quote: Quote) {
         val hash = Utility.getQuoteMd5Hash(quote)
         val favQuote = FavouriteQuote(hash, quote.anime, quote.character, quote.quote)
-        if (quote.isFavourite){
+        if (quote.isFavourite) {
             quote.isFavourite = false
             removeQuoteFromFavourites(favQuote)
         } else {

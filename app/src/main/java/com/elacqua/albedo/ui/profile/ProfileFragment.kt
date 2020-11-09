@@ -59,12 +59,12 @@ class ProfileFragment : Fragment() {
                     navigateToAnimeDetail(animeId)
                 }
             },
-            object : OnMangaSelectedListener{
+            object : OnMangaSelectedListener {
                 override fun onClick(mangaId: Int) {
                     navigateToMangaDetail(mangaId)
                 }
             },
-            object : OnSavedListSelected{
+            object : OnSavedListSelected {
                 override fun deleteItemFromList(itemList: ItemList) {
                     Timber.e("itemList: $itemList")
                     viewModel.deleteItemFromList(itemList)
@@ -94,7 +94,7 @@ class ProfileFragment : Fragment() {
                     navigateToAnimeDetail(animeId)
                 }
             },
-            object : OnMangaSelectedListener{
+            object : OnMangaSelectedListener {
                 override fun onClick(mangaId: Int) {
                     navigateToMangaDetail(mangaId)
                 }
@@ -102,12 +102,12 @@ class ProfileFragment : Fragment() {
         )
     }
 
-    private fun navigateToAnimeDetail(animeId: Int){
+    private fun navigateToAnimeDetail(animeId: Int) {
         val args = bundleOf("animeId" to animeId)
         findNavController().navigate(R.id.action_navigation_profile_to_animeDetailFragment, args)
     }
 
-    private fun navigateToMangaDetail(mangaId: Int){
+    private fun navigateToMangaDetail(mangaId: Int) {
         val args = bundleOf("mangaId" to mangaId)
         findNavController().navigate(R.id.action_navigation_profile_to_mangaDetailFragment, args)
     }
@@ -118,7 +118,7 @@ class ProfileFragment : Fragment() {
         })
 
         viewModel.episodeSum.observe(viewLifecycleOwner, {
-            txt_profile_watched_episodes.text = it.toString()
+            txt_profile_watched_episodes.text = (it ?: 0).toString()
         })
 
         viewModel.readMangaCount.observe(viewLifecycleOwner, {

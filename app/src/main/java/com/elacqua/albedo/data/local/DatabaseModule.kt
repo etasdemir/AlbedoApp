@@ -6,14 +6,16 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-object DatabaseModule{
+object DatabaseModule {
 
     @Provides
     fun provideDatabase(appContext: Context): LocalDatabase {
         return Room
-            .databaseBuilder(appContext.applicationContext,
+            .databaseBuilder(
+                appContext.applicationContext,
                 LocalDatabase::class.java,
-                "localDb")
+                "localDb"
+            )
             .fallbackToDestructiveMigration()
             .build()
     }

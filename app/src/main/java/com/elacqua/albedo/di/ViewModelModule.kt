@@ -5,13 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.elacqua.albedo.ui.ViewModelFactory
 import com.elacqua.albedo.ui.animedetail.AnimeDetailViewModel
 import com.elacqua.albedo.ui.animegenre.AnimeViewModel
-import com.elacqua.albedo.ui.favouritequote.FavouriteQuoteFragment
 import com.elacqua.albedo.ui.favouritequote.FavouriteQuoteViewModel
 import com.elacqua.albedo.ui.genre.GenreViewModel
 import com.elacqua.albedo.ui.home.HomeViewModel
 import com.elacqua.albedo.ui.mangadetail.MangaDetailViewModel
 import com.elacqua.albedo.ui.mangagenre.MangaViewModel
-import com.elacqua.albedo.ui.profile.ProfileFragment
 import com.elacqua.albedo.ui.profile.ProfileViewModel
 import com.elacqua.albedo.ui.schedule.ScheduleViewModel
 import com.elacqua.albedo.ui.search.SearchViewModel
@@ -21,7 +19,11 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import kotlin.reflect.KClass
 
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
+@Target(
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.PROPERTY_GETTER,
+    AnnotationTarget.PROPERTY_SETTER
+)
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @MapKey
 internal annotation class ViewModelKey(val value: KClass<out ViewModel>)

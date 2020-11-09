@@ -14,8 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
-import com.elacqua.albedo.data.remote.jikan_api.model.Anime
-import com.elacqua.albedo.data.remote.jikan_api.model.Manga
 import com.elacqua.albedo.ui.OnAnimeSelectedListener
 import com.elacqua.albedo.ui.OnMangaSelectedListener
 import kotlinx.android.synthetic.main.genre_fragment.*
@@ -23,8 +21,9 @@ import javax.inject.Inject
 
 class GenreFragment : Fragment() {
 
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
-    private val viewModel: GenreViewModel by viewModels{ vmFactory }
+    @Inject
+    lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel: GenreViewModel by viewModels { vmFactory }
     private lateinit var adapter: GenreRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,8 +56,11 @@ class GenreFragment : Fragment() {
             }
         )
         val glm = GridLayoutManager(requireContext(), 2)
-        recycler_genre.adapter = adapter
-        recycler_genre.layoutManager = glm
+        recycler_genre.run {
+            adapter = adapter
+            layoutManager = glm
+            setHasFixedSize(true)
+        }
     }
 
     private fun initObservers() {

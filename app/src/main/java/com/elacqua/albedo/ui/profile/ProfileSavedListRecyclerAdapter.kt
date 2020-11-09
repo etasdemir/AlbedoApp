@@ -18,11 +18,11 @@ class ProfileSavedListRecyclerAdapter(
     private val animeListener: OnAnimeSelectedListener,
     private val mangaListener: OnMangaSelectedListener,
     private val savedListListener: OnSavedListSelected
-) : RecyclerView.Adapter<ProfileSavedListRecyclerAdapter.SavedListsViewHolder>(){
+) : RecyclerView.Adapter<ProfileSavedListRecyclerAdapter.SavedListsViewHolder>() {
 
     private val itemLists = ArrayList<Pair<ItemList, List<Item>>>()
 
-    fun setItemList(itemList: ArrayList<Pair<ItemList, List<Item>>>){
+    fun setItemList(itemList: ArrayList<Pair<ItemList, List<Item>>>) {
         itemLists.clear()
         itemLists.addAll(itemList)
         notifyDataSetChanged()
@@ -32,7 +32,8 @@ class ProfileSavedListRecyclerAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.fragment_profile_saved_recycler, parent, false)
         view.recycler_profile.run {
-            layoutManager = LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(parent.context, LinearLayoutManager.HORIZONTAL, false)
             setRecycledViewPool(RecyclerView.RecycledViewPool())
         }
         return SavedListsViewHolder(view)
@@ -45,8 +46,7 @@ class ProfileSavedListRecyclerAdapter(
 
     override fun getItemCount() = itemLists.size
 
-    inner class SavedListsViewHolder(private val view: View)
-        : RecyclerView.ViewHolder(view){
+    inner class SavedListsViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         fun onBind(position: Int) {
             view.txt_profile_title.text = setRecyclerItemText(position)
@@ -65,7 +65,7 @@ class ProfileSavedListRecyclerAdapter(
             return "$name ($type)"
         }
 
-        fun onClick(position: Int){
+        fun onClick(position: Int) {
             view.btn_profile_delete_list.setOnClickListener {
                 savedListListener.deleteList(itemLists[position].first)
                 itemLists.removeAt(position)

@@ -4,6 +4,8 @@ import com.elacqua.albedo.data.remote.jikan_api.model.*
 import com.elacqua.albedo.data.remote.jikan_api.service.*
 import com.elacqua.albedo.data.remote.quote_api.QuoteList
 import com.elacqua.albedo.data.remote.quote_api.QuoteService
+import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,7 +17,7 @@ class RemoteRepository @Inject constructor(
     private val scheduleService: ScheduleService,
     private val searchService: SearchService,
     private val quoteRetrofit: QuoteService
-){
+) {
 
     private lateinit var schedule: Schedule
     private lateinit var mostPopularAnime: Top<Anime>
@@ -24,18 +26,25 @@ class RemoteRepository @Inject constructor(
     private lateinit var topMovies: Result<Anime>
     private lateinit var topManga: Result<Manga>
     private lateinit var topNovels: Result<Manga>
+    private val animeGenres = ArrayList<AnimeGenre>()
+    private val mangaGenres = ArrayList<MangaGenre>()
 
     suspend fun getQuote(): QuoteList {
-        return quoteRetrofit.getRandomQuote()
+        return try {
+            quoteRetrofit.getRandomQuote()
+        } catch (e: HttpException) {
+            Timber.e(e)
+            QuoteList()
+        }
     }
 
     suspend fun getMultipleAnimeByGenreId(id: IntArray): ArrayList<AnimeGenre> {
-        val result = ArrayList<AnimeGenre>()
-        id.forEach {
-            result.add(animeService.getAnimeByGenreId(it))
-            result[0].malUrl.malId
+        if (animeGenres.isEmpty()) {
+            id.forEach {
+                animeGenres.add(getAnimeByGenreId(it))
+            }
         }
-        return result
+        return animeGenres
     }
 
     suspend fun getAnimeByGenreId(id: Int): AnimeGenre {
@@ -47,11 +56,12 @@ class RemoteRepository @Inject constructor(
     }
 
     suspend fun getMultipleMangaByGenreId(id: IntArray): ArrayList<MangaGenre> {
-        val result = ArrayList<MangaGenre>()
-        id.forEach {
-            result.add(mangaService.getMangaByGenreId(it))
+        if (mangaGenres.isEmpty()) {
+            id.forEach {
+                mangaGenres.add(getMangaByGenreId(it))
+            }
         }
-        return result
+        return mangaGenres
     }
 
     suspend fun getMangaByGenreId(id: Int): MangaGenre {
@@ -68,7 +78,7 @@ class RemoteRepository @Inject constructor(
      *  it.airingStart.split("-")[0] > "2019"
      * */
     suspend fun getScheduleAllDays(): Schedule {
-        if (!::schedule.isInitialized){
+        if (!::schedule.isInitialized) {
             schedule = scheduleService.getScheduleAllDays()
         }
         return schedule
@@ -79,7 +89,7 @@ class RemoteRepository @Inject constructor(
     }
 
     suspend fun getMostPopularAnime(): Top<Anime> {
-        if (!::mostPopularAnime.isInitialized){
+        if (!::mostPopularAnime.isInitialized) {
             mostPopularAnime = searchService.getMostPopularAnime()
         }
         return mostPopularAnime
@@ -101,36 +111,36 @@ class RemoteRepository @Inject constructor(
         return searchService.getSearchResultCharacter(searchType, query, 1)
     }
 
-    suspend fun getTopAiringAnime(): Result<Anime>{
-        if (!::topAiring.isInitialized){
+    suspend fun getTopAiringAnime(): Result<Anime> {
+        if (!::topAiring.isInitialized) {
             topAiring = topItemService.getTopAiringAnime()
         }
         return topAiring
     }
 
-    suspend fun getTopUpcomingAnime(): Result<Anime>{
-        if (!::topUpcoming.isInitialized){
+    suspend fun getTopUpcomingAnime(): Result<Anime> {
+        if (!::topUpcoming.isInitialized) {
             topUpcoming = topItemService.getTopUpcomingAnime()
         }
         return topUpcoming
     }
 
-    suspend fun getTopMovies(): Result<Anime>{
-        if (!::topMovies.isInitialized){
+    suspend fun getTopMovies(): Result<Anime> {
+        if (!::topMovies.isInitialized) {
             topMovies = topItemService.getTopMovies()
         }
         return topMovies
     }
 
-    suspend fun getTopManga(): Result<Manga>{
-        if (!::topManga.isInitialized){
+    suspend fun getTopManga(): Result<Manga> {
+        if (!::topManga.isInitialized) {
             topManga = topItemService.getTopManga()
         }
         return topManga
     }
 
-    suspend fun getTopNovels(): Result<Manga>{
-        if (!::topNovels.isInitialized){
+    suspend fun getTopNovels(): Result<Manga> {
+        if (!::topNovels.isInitialized) {
             topNovels = topItemService.getTopNovels()
         }
         return topNovels

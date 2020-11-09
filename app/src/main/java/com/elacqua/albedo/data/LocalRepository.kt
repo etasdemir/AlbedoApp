@@ -36,7 +36,7 @@ class LocalRepository @Inject constructor(
 
     suspend fun getAllItems() = itemDao.getAllItems()
 
-    suspend fun addItemToItemList (itemList: ItemList) = itemListDao.addItemToList(itemList)
+    suspend fun addItemToItemList(itemList: ItemList) = itemListDao.addItemToList(itemList)
 
     suspend fun getAllListNamesAnime() = itemListDao.getAllListNamesAnime()
 
@@ -49,9 +49,10 @@ class LocalRepository @Inject constructor(
 
     suspend fun getWatchedEpisodesSum() = itemDao.getWatchedEpisodesSum()
 
-    suspend fun getItemsInList(itemType: String, listName: String) = itemListDao.getItemsInList(itemType, listName)
+    suspend fun getItemsInList(itemType: String, listName: String) =
+        itemListDao.getItemsInList(itemType, listName)
 
-    suspend fun deleteItemFromList (itemList: ItemList) = itemListDao.deleteItemFromList(itemList)
+    suspend fun deleteItemFromList(itemList: ItemList) = itemListDao.deleteItemFromList(itemList)
 
     suspend fun deleteList(listName: String, type: String) = itemListDao.deleteList(listName, type)
 }
