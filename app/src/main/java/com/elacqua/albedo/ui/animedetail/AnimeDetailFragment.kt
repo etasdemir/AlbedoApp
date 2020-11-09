@@ -2,10 +2,13 @@ package com.elacqua.albedo.ui.animedetail
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +19,7 @@ import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
 import com.elacqua.albedo.data.local.model.Item
 import com.elacqua.albedo.data.local.model.ItemList
+import com.elacqua.albedo.data.remote.jikan_api.model.Anime
 import com.elacqua.albedo.ui.DialogItemClickListener
 import com.elacqua.albedo.ui.DialogItemListAdapter
 import com.elacqua.albedo.util.Utility
@@ -29,8 +33,9 @@ class AnimeDetailFragment : Fragment() {
     lateinit var vmFactory: ViewModelProvider.Factory
     private val viewModel: AnimeDetailViewModel by viewModels { vmFactory }
     private lateinit var item: Item
-    private lateinit var dialogAdapter: DialogItemListAdapter
+    private lateinit var anime: Anime
     private lateinit var dialog: Dialog
+    private lateinit var dialogAdapter: DialogItemListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +56,15 @@ class AnimeDetailFragment : Fragment() {
         btn_animedetail_list_add.setOnClickListener {
             createAddItemDialog()
         }
+
+        btn_animedetail_trailer.setOnClickListener {
+            if (anime.trailerUrl != "") {
+                startTrailerIntent()
+            } else {
+                Toast.makeText(requireContext(), "Sorry :( Trailer could not be found.", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 
     private fun getAnimeWithArguments() {
@@ -65,19 +79,24 @@ class AnimeDetailFragment : Fragment() {
     }
 
     private fun initAnimeObserver() {
-        viewModel.anime.observe(viewLifecycleOwner, {
-            txt_animedetail_title.text = it.title
-            txt_animedetail_airing_start.text = it.published.string
-            txt_animedetail_members.text = it.members.toString()
-            txt_animedetail_episode.text = it.episodes.toString()
-            txt_animedetail_score.text = it.score.toString()
-            txt_animedetail_genre.text = it.genres.toString()
-            txt_animedetail_synopsis.text = it.synopsis
-            Glide.with(requireContext()).load(it.imageUrl).into(img_animedetail)
-            Utility.setTextViewText(txt_animedetail_producers, it.producers)
-            Utility.setTextViewText(txt_animedetail_opening, it.openingThemes)
-            Utility.setTextViewText(txt_animedetail_ending, it.endingThemes)
+        viewModel.anime.observe(viewLifecycleOwner, { it ->
+            this.anime = it
+            setViews()
         })
+    }
+
+    private fun setViews() {
+        txt_animedetail_title.text = anime.title
+        txt_animedetail_airing_start.text = anime.published.string
+        txt_animedetail_members.text = anime.members.toString()
+        txt_animedetail_episode.text = anime.episodes.toString()
+        txt_animedetail_score.text = anime.score.toString()
+        txt_animedetail_genre.text = anime.genres.toString()
+        txt_animedetail_synopsis.text = anime.synopsis
+        Glide.with(requireContext()).load(anime.imageUrl).into(img_animedetail)
+        Utility.setTextViewText(txt_animedetail_producers, anime.producers)
+        Utility.setTextViewText(txt_animedetail_opening, anime.openingThemes)
+        Utility.setTextViewText(txt_animedetail_ending, anime.endingThemes)
     }
 
     private fun initLocalAnimeObserver() {
@@ -152,6 +171,11 @@ class AnimeDetailFragment : Fragment() {
         val type = "anime"
         val itemList = ItemList(itemId = itemId, name = listName, type = type)
         viewModel.addItemToItemList(itemList)
+    }
+
+    private fun startTrailerIntent(){
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(anime.trailerUrl))
+        startActivity(intent)
     }
 
     override fun onCreateView(

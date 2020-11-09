@@ -101,7 +101,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/detail_episodes"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,8 +114,6 @@
             android:layout_marginEnd="8dp"
             android:text="@string/detail_score"
             app:layout_constraintEnd_toStartOf="@+id/txt_animedetail_score"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/txt_animedetail_episode"
             app:layout_constraintTop_toTopOf="@+id/textView10" />
 
         <TextView
@@ -131,10 +129,10 @@
             android:id="@+id/txt_animedetail_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            tools:text="TextView"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            tools:text="TextView" />
 
         <TextView
             android:id="@+id/textView14"
@@ -279,6 +277,16 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@+id/btn_animedetail_favourite"
             app:layout_constraintTop_toTopOf="@+id/btn_animedetail_favourite" />
+
+        <Button
+            android:id="@+id/btn_animedetail_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_trailer"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toStartOf="@+id/textView11"
+            app:layout_constraintStart_toEndOf="@+id/txt_animedetail_episode"
+            app:layout_constraintTop_toTopOf="@+id/textView10" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

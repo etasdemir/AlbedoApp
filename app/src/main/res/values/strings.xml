@@ -39,6 +39,7 @@
     <string name="detail_producers">Producers</string>
     <string name="detail_opening_themes">Opening Themes</string>
     <string name="detail_ending_themes">Ending Themes</string>
+    <string name="detail_trailer">Trailer</string>
 
     <string name="detail_published">Published</string>
     <string name="detail_volumes">Volume</string>
