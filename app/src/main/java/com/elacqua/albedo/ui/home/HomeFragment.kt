@@ -31,27 +31,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recycler_home.layoutManager = llm
+        recycler_home.layoutManager = LinearLayoutManager(requireContext())
         recycler_home.setHasFixedSize(true)
         adapter = HomeRecyclerAdapter(
             object : OnAnimeSelectedListener {
                 override fun onClick(animeId: Int) {
-                    val args = bundleOf("animeId" to animeId)
+                    val args = bundleOf(getString(R.string.key_anime_id) to animeId)
                     findNavController()
                         .navigate(R.id.action_navigation_home_to_animeDetailFragment, args)
                 }
             },
             object : OnMangaSelectedListener {
                 override fun onClick(mangaId: Int) {
-                    val args = bundleOf("mangaId" to mangaId)
+                    val args = bundleOf(getString(R.string.key_manga_id) to mangaId)
                     findNavController()
                         .navigate(R.id.action_navigation_home_to_mangaDetailFragment, args)
                 }
             },
             object : OnGenreSelected {
                 override fun onGenreClick(type: Int) {
-                    val args = bundleOf("genreType" to type)
+                    val args = bundleOf(getString(R.string.key_genre_type) to type)
                     findNavController()
                         .navigate(R.id.action_navigation_home_to_genreFragment, args)
                 }

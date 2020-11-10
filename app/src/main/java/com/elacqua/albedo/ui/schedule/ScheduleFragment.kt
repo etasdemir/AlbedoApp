@@ -35,7 +35,7 @@ class ScheduleFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = ScheduleRecyclerAdapter(object : OnScheduleAnimeSelected {
             override fun onClick(anime: Anime) {
-                val args = bundleOf("animeId" to anime.malId)
+                val args = bundleOf(getString(R.string.key_anime_id) to anime.malId)
                 findNavController()
                     .navigate(R.id.action_navigation_schedule_to_animeDetailFragment, args)
             }

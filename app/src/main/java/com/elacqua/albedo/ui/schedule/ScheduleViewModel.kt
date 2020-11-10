@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elacqua.albedo.data.RemoteRepository
+import com.elacqua.albedo.data.remote.RemoteRepository
 import com.elacqua.albedo.data.remote.jikan_api.model.Schedule
 import kotlinx.coroutines.launch
 import javax.inject.Inject

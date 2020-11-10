@@ -64,13 +64,14 @@ class AnimeFragment : Fragment() {
     }
 
     private fun navigateToAnimeDetail(animeId: Int) {
-        val bundle = bundleOf("animeId" to animeId)
+        val bundle = bundleOf(getString(R.string.key_anime_id) to animeId)
         findNavController().navigate(R.id.action_animeFragment_to_animeDetailFragment, bundle)
     }
 
     private fun navigateToAnimeCategory(animeGenre: AnimeGenre) {
         val args =
-            bundleOf("genreType" to GenreType.ANIME, "genreId" to animeGenre.malUrl.malId)
+            bundleOf(getString(R.string.key_genre_type) to GenreType.ANIME,
+                getString(R.string.key_genre_id) to animeGenre.malUrl.malId)
         findNavController().navigate(R.id.action_animeFragment_to_genreFragment, args)
     }
 

@@ -103,12 +103,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun navigateToAnimeDetail(animeId: Int) {
-        val args = bundleOf("animeId" to animeId)
+        val args = bundleOf(getString(R.string.key_anime_id) to animeId)
         findNavController().navigate(R.id.action_navigation_profile_to_animeDetailFragment, args)
     }
 
     private fun navigateToMangaDetail(mangaId: Int) {
-        val args = bundleOf("mangaId" to mangaId)
+        val args = bundleOf(getString(R.string.key_manga_id) to mangaId)
         findNavController().navigate(R.id.action_navigation_profile_to_mangaDetailFragment, args)
     }
 

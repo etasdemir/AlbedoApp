@@ -35,7 +35,7 @@ class MangaDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = arguments?.get("mangaId") as Int
+        val id = arguments?.get(getString(R.string.key_manga_id)) as Int
         viewModel.getMangaById(id)
         dialog = Dialog(requireContext())
         initDialogAdapter()

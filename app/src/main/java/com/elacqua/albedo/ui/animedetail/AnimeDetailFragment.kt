@@ -68,7 +68,7 @@ class AnimeDetailFragment : Fragment() {
     }
 
     private fun getAnimeWithArguments() {
-        val id = arguments?.get("animeId") as Int
+        val id = arguments?.get(getString(R.string.key_anime_id)) as Int
         viewModel.getAnimeById(id)
     }
 

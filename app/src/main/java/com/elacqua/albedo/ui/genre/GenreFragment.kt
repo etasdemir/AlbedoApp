@@ -29,27 +29,29 @@ class GenreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getItemsUsingArguments()
         initRecyclerView()
-
-        val type = arguments?.get("genreType") as Int
-        val genreId = arguments?.get("genreId") ?: 0
-        viewModel.getItemsInGenre(type, genreId as Int)
-
         initObservers()
+    }
+
+    private fun getItemsUsingArguments(){
+        val type = arguments?.get(getString(R.string.key_genre_type)) as Int
+        val genreId = arguments?.get(getString(R.string.key_genre_id)) ?: 0
+        viewModel.getItemsInGenre(type, genreId as Int)
     }
 
     private fun initRecyclerView() {
         adapter = GenreRecyclerAdapter(
             object : OnAnimeSelectedListener {
                 override fun onClick(animeId: Int) {
-                    val args = bundleOf("animeId" to animeId)
+                    val args = bundleOf(getString(R.string.key_anime_id) to animeId)
                     findNavController()
                         .navigate(R.id.action_genreFragment_to_animeDetailFragment, args)
                 }
             },
             object : OnMangaSelectedListener {
                 override fun onClick(mangaId: Int) {
-                    val args = bundleOf("mangaId" to mangaId)
+                    val args = bundleOf(getString(R.string.key_manga_id) to mangaId)
                     findNavController()
                         .navigate(R.id.action_genreFragment_to_mangaDetailFragment, args)
                 }
@@ -57,7 +59,6 @@ class GenreFragment : Fragment() {
         )
         val glm = GridLayoutManager(requireContext(), 2)
         recycler_genre.run {
-            adapter = adapter
             layoutManager = glm
             setHasFixedSize(true)
         }
@@ -93,5 +94,15 @@ class GenreFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
+
+    override fun onStart() {
+        recycler_genre.adapter = adapter
+        super.onStart()
+    }
+
+    override fun onStop() {
+        recycler_genre.adapter = null
+        super.onStop()
     }
 }

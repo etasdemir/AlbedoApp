@@ -9,9 +9,6 @@ interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addItem(item: Item)
 
-    @Delete
-    suspend fun deleteItem(item: Item)
-
     @Query("select * from Item where malId = :id")
     suspend fun getItemWithId(id: Int): Item
 

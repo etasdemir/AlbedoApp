@@ -42,7 +42,7 @@ class SearchFragment : Fragment() {
     private fun initRecyclerView() {
         initialAdapter = AnimeAdapter(object : OnSearchSelected<Anime> {
             override fun onClick(item: Anime) {
-                val args = bundleOf("animeId" to item.malId)
+                val args = bundleOf(getString(R.string.key_anime_id) to item.malId)
                 findNavController()
                     .navigate(R.id.action_navigation_search_to_animeDetailFragment, args)
             }
@@ -69,7 +69,7 @@ class SearchFragment : Fragment() {
         searchViewModel.searchResultAnime.observe(viewLifecycleOwner, {
             val newAdapter = AnimeAdapter(object : OnSearchSelected<Anime> {
                 override fun onClick(item: Anime) {
-                    val args = bundleOf("animeId" to item.malId)
+                    val args = bundleOf(getString(R.string.key_anime_id) to item.malId)
                     findNavController()
                         .navigate(R.id.action_navigation_search_to_animeDetailFragment, args)
                 }
@@ -80,7 +80,7 @@ class SearchFragment : Fragment() {
         searchViewModel.searchResultManga.observe(viewLifecycleOwner, {
             val newAdapter = MangaAdapter(object : OnSearchSelected<Manga> {
                 override fun onClick(item: Manga) {
-                    val args = bundleOf("mangaId" to item.malId)
+                    val args = bundleOf(getString(R.string.key_manga_id) to item.malId)
                     findNavController()
                         .navigate(R.id.action_navigation_search_to_mangaDetailFragment2, args)
                 }

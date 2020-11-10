@@ -64,12 +64,13 @@ class MangaFragment : Fragment() {
     }
 
     private fun navigateToMangaDetail(mangaId: Int) {
-        val args = bundleOf("mangaId" to mangaId)
+        val args = bundleOf(getString(R.string.key_manga_id) to mangaId)
         findNavController().navigate(R.id.action_mangaFragment_to_mangaDetailFragment, args)
     }
 
     private fun navigateToMangaCategory(mangaGenre: MangaGenre) {
-        val args = bundleOf("genreType" to GenreType.MANGA, "genreId" to mangaGenre.malUrl.malId)
+        val args = bundleOf(getString(R.string.key_genre_type) to GenreType.MANGA,
+            getString(R.string.key_genre_id) to mangaGenre.malUrl.malId)
         findNavController().navigate(R.id.action_mangaFragment_to_genreFragment, args)
     }
 

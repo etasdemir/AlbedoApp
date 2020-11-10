@@ -1,4 +1,4 @@
-package com.elacqua.albedo.data
+package com.elacqua.albedo.data.remote
 
 import com.elacqua.albedo.data.remote.jikan_api.model.*
 import com.elacqua.albedo.data.remote.jikan_api.service.*
