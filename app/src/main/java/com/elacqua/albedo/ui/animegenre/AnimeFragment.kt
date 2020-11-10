@@ -31,9 +31,9 @@ class AnimeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        refreshQuote()
         initRecyclerView()
         initObservers()
-
     }
 
     private fun initRecyclerView() {
@@ -50,7 +50,7 @@ class AnimeFragment : Fragment() {
             },
             object : OnQuoteClickListener {
                 override fun onRefreshClick() {
-                    viewModel.refreshQuote()
+                    refreshQuote()
                 }
 
                 override fun onFavouriteClick(quote: Quote) {
@@ -66,6 +66,11 @@ class AnimeFragment : Fragment() {
     private fun navigateToAnimeDetail(animeId: Int) {
         val bundle = bundleOf(getString(R.string.key_anime_id) to animeId)
         findNavController().navigate(R.id.action_animeFragment_to_animeDetailFragment, bundle)
+    }
+
+    private fun refreshQuote(){
+        val inputStream = resources.assets.open("quote_data.json")
+        viewModel.refreshQuote(inputStream)
     }
 
     private fun navigateToAnimeCategory(animeGenre: AnimeGenre) {

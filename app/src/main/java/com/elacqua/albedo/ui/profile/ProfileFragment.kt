@@ -46,7 +46,6 @@ class ProfileFragment : Fragment() {
         val llm = LinearLayoutManager(requireContext())
         recycler_profile_lists.run {
             layoutManager = llm
-            adapter = savedListAdapter
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
         }
@@ -81,7 +80,6 @@ class ProfileFragment : Fragment() {
         setItemsAdapter()
         recycler_profile_items.run {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = itemsAdapter
             setHasFixedSize(true)
             isNestedScrollingEnabled = false
         }
@@ -147,4 +145,17 @@ class ProfileFragment : Fragment() {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
     }
+
+    override fun onStart() {
+        recycler_profile_lists.adapter = savedListAdapter
+        recycler_profile_items.adapter = itemsAdapter
+        super.onStart()
+    }
+
+    override fun onStop() {
+        recycler_profile_lists.adapter = null
+        recycler_profile_items.adapter = null
+        super.onStop()
+    }
+
 }

@@ -12,6 +12,7 @@ import com.elacqua.albedo.data.remote.quote_api.Quote
 import com.elacqua.albedo.util.MangaGenreId
 import com.elacqua.albedo.util.Utility
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 class MangaViewModel @Inject constructor(
@@ -29,7 +30,6 @@ class MangaViewModel @Inject constructor(
     val mangaGenres = _mangaGenres
 
     init {
-        getQuote()
         getMangaByGenres(
             MangaGenreId.Mystery, MangaGenreId.Demons, MangaGenreId.Historical,
             MangaGenreId.Magic
@@ -48,9 +48,9 @@ class MangaViewModel @Inject constructor(
         _mangaGenre.postValue(result)
     }
 
-    private fun getQuote() {
+    private fun getQuote(inputStream: InputStream) {
         viewModelScope.launch {
-            val result = remoteRepository.getQuote()
+            val result = remoteRepository.getQuote(inputStream)
             if (result.data.isNullOrEmpty()) {
                 _quote.postValue(Quote())
             } else {
@@ -74,8 +74,8 @@ class MangaViewModel @Inject constructor(
         return false
     }
 
-    fun refreshQuote() {
-        getQuote()
+    fun refreshQuote(inputStream: InputStream) {
+        getQuote(inputStream)
     }
 
     fun favouriteClicked(quote: Quote) {

@@ -4,10 +4,14 @@ import com.elacqua.albedo.data.remote.jikan_api.model.*
 import com.elacqua.albedo.data.remote.jikan_api.service.*
 import com.elacqua.albedo.data.remote.quote_api.QuoteList
 import com.elacqua.albedo.data.remote.quote_api.QuoteService
+import com.elacqua.albedo.util.Utility
 import retrofit2.HttpException
 import timber.log.Timber
+import java.io.InputStream
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.ArrayList
 
 @Singleton
 class RemoteRepository @Inject constructor(
@@ -29,13 +33,20 @@ class RemoteRepository @Inject constructor(
     private val animeGenres = ArrayList<AnimeGenre>()
     private val mangaGenres = ArrayList<MangaGenre>()
 
-    suspend fun getQuote(): QuoteList {
+    suspend fun getQuote(inputStream: InputStream): QuoteList {
         return try {
             quoteRetrofit.getRandomQuote()
         } catch (e: HttpException) {
             Timber.e(e)
-            QuoteList()
+            getRandomQuoteFromLocalQuoteJson(inputStream)
         }
+    }
+
+    private fun getRandomQuoteFromLocalQuoteJson(inputStream: InputStream): QuoteList {
+        val quoteList = Utility.jsonToQuoteList(inputStream)
+        val random = Random()
+        val randomQuote = quoteList.data[random.nextInt(quoteList.data.size)]
+        return QuoteList(listOf(randomQuote))
     }
 
     suspend fun getMultipleAnimeByGenreId(id: IntArray): ArrayList<AnimeGenre> {

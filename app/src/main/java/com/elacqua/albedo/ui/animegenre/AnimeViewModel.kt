@@ -13,6 +13,7 @@ import com.elacqua.albedo.data.remote.quote_api.QuoteList
 import com.elacqua.albedo.util.AnimeGenreId
 import com.elacqua.albedo.util.Utility.getQuoteMd5Hash
 import kotlinx.coroutines.launch
+import java.io.InputStream
 import javax.inject.Inject
 
 class AnimeViewModel @Inject constructor(
@@ -31,7 +32,6 @@ class AnimeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getQuote()
             getAnimeByGenres(
                 AnimeGenreId.Action, AnimeGenreId.Adventure, AnimeGenreId.Drama,
                 AnimeGenreId.Fantasy
@@ -39,8 +39,8 @@ class AnimeViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getQuote() {
-        val result = remoteRepository.getQuote()
+    private suspend fun getQuote(inputStream: InputStream) {
+        val result = remoteRepository.getQuote(inputStream)
         if (result.data.isNullOrEmpty()) {
             _quote.postValue(Quote())
             return
@@ -63,9 +63,9 @@ class AnimeViewModel @Inject constructor(
         return false
     }
 
-    fun refreshQuote() {
+    fun refreshQuote(inputStream: InputStream) {
         viewModelScope.launch {
-            getQuote()
+            getQuote(inputStream)
         }
     }
 

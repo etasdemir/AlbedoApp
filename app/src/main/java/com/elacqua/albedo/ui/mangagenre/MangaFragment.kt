@@ -31,6 +31,7 @@ class MangaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        refreshQuote()
         initRecyclerView()
         initViewModelObservers()
     }
@@ -49,7 +50,7 @@ class MangaFragment : Fragment() {
             },
             object : OnQuoteClickListener {
                 override fun onRefreshClick() {
-                    viewModel.refreshQuote()
+                    refreshQuote()
                 }
 
                 override fun onFavouriteClick(quote: Quote) {
@@ -66,6 +67,11 @@ class MangaFragment : Fragment() {
     private fun navigateToMangaDetail(mangaId: Int) {
         val args = bundleOf(getString(R.string.key_manga_id) to mangaId)
         findNavController().navigate(R.id.action_mangaFragment_to_mangaDetailFragment, args)
+    }
+
+    private fun refreshQuote(){
+        val inputStream = resources.assets.open("quote_data.json")
+        viewModel.refreshQuote(inputStream)
     }
 
     private fun navigateToMangaCategory(mangaGenre: MangaGenre) {
