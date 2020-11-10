@@ -8,7 +8,8 @@ import com.elacqua.albedo.R
 import com.elacqua.albedo.data.local.model.FavouriteQuote
 import kotlinx.android.synthetic.main.fragment_favourite_quote_item.view.*
 
-class FavouriteQuoteAdapter : RecyclerView.Adapter<FavouriteQuoteAdapter.ViewHolder>() {
+class FavouriteQuoteAdapter (private val listener: OnFavouriteQuoteClickListener)
+    : RecyclerView.Adapter<FavouriteQuoteAdapter.ViewHolder>() {
     private val quotes = ArrayList<FavouriteQuote>()
 
     fun setQuotes(quoteList: List<FavouriteQuote>) {
@@ -25,6 +26,7 @@ class FavouriteQuoteAdapter : RecyclerView.Adapter<FavouriteQuoteAdapter.ViewHol
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(position)
+        holder.onClick(position)
     }
 
     override fun getItemCount() = quotes.size
@@ -35,6 +37,13 @@ class FavouriteQuoteAdapter : RecyclerView.Adapter<FavouriteQuoteAdapter.ViewHol
                 txt_favourite_quote_quote.text = quotes[position].quote
                 txt_favourite_quote_character.text = quotes[position].character
                 txt_favourite_quote_anime.text = quotes[position].anime
+            }
+        }
+
+        fun onClick(position: Int){
+            view.btn_favourite_quote_delete.setOnClickListener {
+                listener.onClick(quotes[position])
+                notifyItemRemoved(position)
             }
         }
     }

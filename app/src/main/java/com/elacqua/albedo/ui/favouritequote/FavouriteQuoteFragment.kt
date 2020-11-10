@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elacqua.albedo.AlbedoApp
 import com.elacqua.albedo.R
+import com.elacqua.albedo.data.local.model.FavouriteQuote
 import com.elacqua.albedo.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.favourite_quote_fragment.*
 import timber.log.Timber
@@ -31,17 +32,25 @@ class FavouriteQuoteFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        rvAdapter = FavouriteQuoteAdapter()
+        initAdapter()
         recycler_favourite_quote.run {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = rvAdapter
             setHasFixedSize(true)
         }
     }
 
+    private fun initAdapter() {
+        rvAdapter = FavouriteQuoteAdapter(
+            object: OnFavouriteQuoteClickListener{
+                override fun onClick(quote: FavouriteQuote) {
+                    viewModel.removeQuote(quote)
+                }
+            }
+        )
+    }
+
     private fun initQuotesObserver() {
         viewModel.quotes.observe(viewLifecycleOwner, {
-            Timber.e("quotes: $it")
             rvAdapter.setQuotes(it)
         })
     }
@@ -57,5 +66,15 @@ class FavouriteQuoteFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as AlbedoApp).appComponent.inject(this)
+    }
+
+    override fun onStart() {
+        recycler_favourite_quote.adapter = rvAdapter
+        super.onStart()
+    }
+
+    override fun onStop() {
+        recycler_favourite_quote.adapter = null
+        super.onStop()
     }
 }

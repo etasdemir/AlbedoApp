@@ -26,4 +26,9 @@ class FavouriteQuoteViewModel @Inject constructor(
         }
     }
 
+    fun removeQuote(quote: FavouriteQuote) {
+        viewModelScope.launch {
+            localRepository.deleteFavouriteQuote(quote)
+        }
+    }
 }
