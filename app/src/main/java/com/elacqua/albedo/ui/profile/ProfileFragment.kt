@@ -37,8 +37,16 @@ class ProfileFragment : Fragment() {
         initObservers()
 
         txt_profile_favourite_quotes.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_profile_to_favouriteQuoteFragment)
+            navigateToFavQuoteFrag()
         }
+
+        btn_favourite_quote.setOnClickListener {
+            navigateToFavQuoteFrag()
+        }
+    }
+
+    private fun navigateToFavQuoteFrag(){
+        findNavController().navigate(R.id.action_navigation_profile_to_favouriteQuoteFragment)
     }
 
     private fun initSavedListRecycler() {

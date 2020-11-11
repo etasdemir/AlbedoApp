@@ -18,7 +18,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="0dp"
             tools:text="TextView"
-            android:textSize="20sp"
+            style="@style/mini_title_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

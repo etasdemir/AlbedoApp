@@ -62,6 +62,10 @@
     <string name="profile_favourite_quotes">Favourite Quotes</string>
     <string name="profile_my_list">Saved Lists</string>
 
+    // Favourite Quote
+    <string name="favourite_quote_character">Character: </string>
+    <string name="favourite_quote_anime">Anime: </string>
+
     // Argument Keys
     <string name="key_anime_id">animeId</string>
     <string name="key_manga_id">mangaId</string>

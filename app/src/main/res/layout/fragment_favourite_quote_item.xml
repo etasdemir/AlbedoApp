@@ -2,9 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="8dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,19 +25,23 @@
 
         <TextView
             android:id="@+id/textView19"
+            style="@style/mini_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Character:"
+            android:text="@string/favourite_quote_character"
             app:layout_constraintStart_toStartOf="@+id/txt_favourite_quote_quote"
             app:layout_constraintTop_toBottomOf="@+id/txt_favourite_quote_quote" />
 
         <TextView
             android:id="@+id/textView21"
+            style="@style/mini_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Anime:"
+            android:layout_marginBottom="4dp"
+            android:text="@string/favourite_quote_anime"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/txt_favourite_quote_quote"
             app:layout_constraintTop_toBottomOf="@+id/txt_favourite_quote_character" />
 
@@ -47,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView19"
             app:layout_constraintEnd_toStartOf="@+id/btn_favourite_quote_delete"
             app:layout_constraintStart_toEndOf="@+id/textView19"
             app:layout_constraintTop_toTopOf="@+id/textView19"
@@ -58,8 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView21"
             app:layout_constraintEnd_toStartOf="@+id/btn_favourite_quote_delete"
             app:layout_constraintStart_toEndOf="@+id/textView21"
             app:layout_constraintTop_toTopOf="@+id/textView21"

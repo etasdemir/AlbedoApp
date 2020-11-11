@@ -107,14 +107,17 @@
 
         <TextView
             android:id="@+id/txt_profile_favourite_quotes"
-            android:layout_width="match_parent"
+            style="@style/title_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:paddingStart="8dp"
+            android:paddingEnd="0dp"
             android:text="@string/profile_favourite_quotes"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toStartOf="@+id/btn_favourite_quote"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <TextView
             android:id="@+id/textView25"
@@ -123,7 +126,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/profile_my_list"
-            android:textSize="20sp"
+            style="@style/title_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -143,6 +146,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_profile_favourite_quotes" />
+
+        <ImageButton
+            android:id="@+id/btn_favourite_quote"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_profile_favourite_quotes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_profile_favourite_quotes"
+            app:srcCompat="@drawable/ic_arrow_forward_36" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
