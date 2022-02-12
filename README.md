@@ -3,7 +3,7 @@
 
 With AlbedoApp you can find most popular anime series, top upcomings, airings, movies, manga and novels. Make searches by anime, manga, character or people. Find anime and manga by genres. Follow weekly anime schedule. Read anime quotes. Track down watched anime, read manga, total watched episode count, favourite quotes, favourite anime and manga. Create custom anime and manga lists.
 
-Libraries:<br/>
+Tech Stack:<br/>
 MVVM Architecure, <br/>
 Dagger2,<br/>
 Architecture Components (Lifecycle, LiveData, ViewModel, Navigation, Room),<br/>
